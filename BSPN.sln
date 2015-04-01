@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSPN.Data", "BSPN.Data\BSPN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{8E336553-4072-4AF8-916D-C27874EB7CED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSN", "BSPN\BSN.csproj", "{8BD5D696-D093-411D-8B1D-60E2CE514D2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8E336553-4072-4AF8-916D-C27874EB7CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E336553-4072-4AF8-916D-C27874EB7CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E336553-4072-4AF8-916D-C27874EB7CED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD5D696-D093-411D-8B1D-60E2CE514D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD5D696-D093-411D-8B1D-60E2CE514D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD5D696-D093-411D-8B1D-60E2CE514D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD5D696-D093-411D-8B1D-60E2CE514D2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
