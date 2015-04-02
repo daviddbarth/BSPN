@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using BSPN.Models;
+using BSPN.Security;
 
 namespace BSPN
 {
@@ -63,6 +64,9 @@ namespace BSPN
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            app.UseClaimsTransformation(new ClaimsTransformer());
+
         }
     }
 }

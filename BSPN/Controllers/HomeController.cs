@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,9 +21,19 @@ namespace BSPN.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+
+            ClaimsPrincipal principal = (ClaimsPrincipal)HttpContext.User;
+            string ClaimsString = string.Empty;
+
+            foreach(var claim in principal.Claims)
+            {
+                ClaimsString += string.Format("{0} - {1}\n", claim.Type, claim.Value);
+            }
+
+            ViewBag.Message = ClaimsString;
 
             return View();
         }
