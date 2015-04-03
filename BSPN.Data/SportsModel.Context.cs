@@ -30,5 +30,9 @@ namespace BSPN.Data
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<SecurityClaim> SecurityClaims { get; set; }
+        public virtual DbSet<Driver> Drivers { get; set; }
+        public virtual DbSet<RacePick> RacePicks { get; set; }
+        public virtual DbSet<Race> Races { get; set; }
+        public virtual DbSet<Track> Tracks { get; set; }
     }
 }

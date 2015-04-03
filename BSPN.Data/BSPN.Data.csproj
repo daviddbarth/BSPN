@@ -60,7 +60,16 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Driver.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Race.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RacePick.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SecurityClaim.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
@@ -79,6 +88,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SportsModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Track.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,7 @@ namespace BSPN.Data
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.RacePicks = new HashSet<RacePick>();
         }
     
         public string Id { get; set; }
@@ -37,5 +38,6 @@ namespace BSPN.Data
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        public virtual ICollection<RacePick> RacePicks { get; set; }
     }
 }

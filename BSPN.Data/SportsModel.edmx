@@ -56,6 +56,33 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="CarNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RacePicks">
+          <Key>
+            <PropertyRef Name="RacePickId" />
+          </Key>
+          <Property Name="RacePickId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RaceId" Type="int" />
+          <Property Name="DriverId" Type="int" />
+        </EntityType>
+        <EntityType Name="Races">
+          <Key>
+            <PropertyRef Name="RaceId" />
+          </Key>
+          <Property Name="RaceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RaceDate" Type="datetime" />
+          <Property Name="RaceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TrackId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SecurityClaims">
           <Key>
             <PropertyRef Name="ClaimId" />
@@ -71,6 +98,13 @@
           </Key>
           <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ClaimId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tracks">
+          <Key>
+            <PropertyRef Name="TrackId" />
+          </Key>
+          <Property Name="TrackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrackName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -128,6 +162,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="RacePicks_AspNetUsers_FK">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="RacePicks" Type="Self.RacePicks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RacePicks">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RacePicks_Drivers_FK">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="RacePicks" Type="Self.RacePicks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="RacePicks">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RacePicks_Races_FK">
+          <End Role="Races" Type="Self.Races" Multiplicity="0..1" />
+          <End Role="RacePicks" Type="Self.RacePicks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Races">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="RacePicks">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Races_Tracks_FK">
+          <End Role="Tracks" Type="Self.Tracks" Multiplicity="1" />
+          <End Role="Races" Type="Self.Races" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracks">
+              <PropertyRef Name="TrackId" />
+            </Principal>
+            <Dependent Role="Races">
+              <PropertyRef Name="TrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SecurityRoleClaims_AspNetRoles_FK">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
           <End Role="SecurityRoleClaims" Type="Self.SecurityRoleClaims" Multiplicity="*" />
@@ -158,8 +240,12 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RacePicks" EntityType="Self.RacePicks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Races" EntityType="Self.Races" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecurityClaims" EntityType="Self.SecurityClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecurityRoleClaims" EntityType="Self.SecurityRoleClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tracks" EntityType="Self.Tracks" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -175,6 +261,22 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="RacePicks_AspNetUsers_FK" Association="Self.RacePicks_AspNetUsers_FK">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RacePicks" EntitySet="RacePicks" />
+          </AssociationSet>
+          <AssociationSet Name="RacePicks_Drivers_FK" Association="Self.RacePicks_Drivers_FK">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="RacePicks" EntitySet="RacePicks" />
+          </AssociationSet>
+          <AssociationSet Name="RacePicks_Races_FK" Association="Self.RacePicks_Races_FK">
+            <End Role="Races" EntitySet="Races" />
+            <End Role="RacePicks" EntitySet="RacePicks" />
+          </AssociationSet>
+          <AssociationSet Name="Races_Tracks_FK" Association="Self.Races_Tracks_FK">
+            <End Role="Tracks" EntitySet="Tracks" />
+            <End Role="Races" EntitySet="Races" />
           </AssociationSet>
           <AssociationSet Name="SecurityRoleClaims_AspNetRoles_FK" Association="Self.SecurityRoleClaims_AspNetRoles_FK">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -238,6 +340,7 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_AspNetUsers_FK" FromRole="AspNetUser" ToRole="RacePick" />
         </EntityType>
         <EntityType Name="SecurityClaim">
           <Key>
@@ -306,7 +409,116 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="SecurityClaims" EntitySet="SecurityClaims" />
           </AssociationSet>
+          <EntitySet Name="Drivers" EntityType="SportsModel.Driver" />
+          <EntitySet Name="RacePicks" EntityType="SportsModel.RacePick" />
+          <EntitySet Name="Races" EntityType="SportsModel.Race" />
+          <EntitySet Name="Tracks" EntityType="SportsModel.Track" />
+          <AssociationSet Name="RacePicks_AspNetUsers_FK" Association="SportsModel.RacePicks_AspNetUsers_FK">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="RacePick" EntitySet="RacePicks" />
+          </AssociationSet>
+          <AssociationSet Name="RacePicks_Drivers_FK" Association="SportsModel.RacePicks_Drivers_FK">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="RacePick" EntitySet="RacePicks" />
+          </AssociationSet>
+          <AssociationSet Name="RacePicks_Races_FK" Association="SportsModel.RacePicks_Races_FK">
+            <End Role="Race" EntitySet="Races" />
+            <End Role="RacePick" EntitySet="RacePicks" />
+          </AssociationSet>
+          <AssociationSet Name="Races_Tracks_FK" Association="SportsModel.Races_Tracks_FK">
+            <End Role="Track" EntitySet="Tracks" />
+            <End Role="Race" EntitySet="Races" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CarNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_Drivers_FK" FromRole="Driver" ToRole="RacePick" />
+        </EntityType>
+        <EntityType Name="RacePick">
+          <Key>
+            <PropertyRef Name="RacePickId" />
+          </Key>
+          <Property Name="RacePickId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RaceId" Type="Int32" />
+          <Property Name="DriverId" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="SportsModel.RacePicks_AspNetUsers_FK" FromRole="RacePick" ToRole="AspNetUser" />
+          <NavigationProperty Name="Driver" Relationship="SportsModel.RacePicks_Drivers_FK" FromRole="RacePick" ToRole="Driver" />
+          <NavigationProperty Name="Race" Relationship="SportsModel.RacePicks_Races_FK" FromRole="RacePick" ToRole="Race" />
+        </EntityType>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="RaceId" />
+          </Key>
+          <Property Name="RaceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RaceDate" Type="DateTime" Precision="3" />
+          <Property Name="RaceName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TrackId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_Races_FK" FromRole="Race" ToRole="RacePick" />
+          <NavigationProperty Name="Track" Relationship="SportsModel.Races_Tracks_FK" FromRole="Race" ToRole="Track" />
+        </EntityType>
+        <EntityType Name="Track">
+          <Key>
+            <PropertyRef Name="TrackId" />
+          </Key>
+          <Property Name="TrackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrackName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Races" Relationship="SportsModel.Races_Tracks_FK" FromRole="Track" ToRole="Race" />
+        </EntityType>
+        <Association Name="RacePicks_AspNetUsers_FK">
+          <End Type="SportsModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SportsModel.RacePick" Role="RacePick" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RacePick">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RacePicks_Drivers_FK">
+          <End Type="SportsModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="SportsModel.RacePick" Role="RacePick" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="RacePick">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RacePicks_Races_FK">
+          <End Type="SportsModel.Race" Role="Race" Multiplicity="0..1" />
+          <End Type="SportsModel.RacePick" Role="RacePick" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="RacePick">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Races_Tracks_FK">
+          <End Type="SportsModel.Track" Role="Track" Multiplicity="1" />
+          <End Type="SportsModel.Race" Role="Race" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Track">
+              <PropertyRef Name="TrackId" />
+            </Principal>
+            <Dependent Role="Race">
+              <PropertyRef Name="TrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -383,6 +595,44 @@
               <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="SportsModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RacePicks">
+            <EntityTypeMapping TypeName="SportsModel.RacePick">
+              <MappingFragment StoreEntitySet="RacePicks">
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RacePickId" ColumnName="RacePickId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Races">
+            <EntityTypeMapping TypeName="SportsModel.Race">
+              <MappingFragment StoreEntitySet="Races">
+                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+                <ScalarProperty Name="RaceName" ColumnName="RaceName" />
+                <ScalarProperty Name="RaceDate" ColumnName="RaceDate" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tracks">
+            <EntityTypeMapping TypeName="SportsModel.Track">
+              <MappingFragment StoreEntitySet="Tracks">
+                <ScalarProperty Name="TrackName" ColumnName="TrackName" />
+                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
