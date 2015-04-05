@@ -17,13 +17,13 @@ namespace BSPN.Data
         public AspNetRole()
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
-            this.SecurityClaims = new HashSet<SecurityClaim>();
+            this.Claims = new HashSet<Claim>();
         }
     
         public string Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
-        public virtual ICollection<SecurityClaim> SecurityClaims { get; set; }
+        public virtual ICollection<Claim> Claims { get; set; }
     }
 }

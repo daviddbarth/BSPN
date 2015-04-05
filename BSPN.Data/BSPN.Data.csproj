@@ -60,6 +60,9 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Claim.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Driver.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
@@ -68,9 +71,6 @@
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RacePick.cs">
-      <DependentUpon>SportsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SecurityClaim.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SportsEntities.cs" />

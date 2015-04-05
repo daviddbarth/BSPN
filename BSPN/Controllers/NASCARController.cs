@@ -1,18 +1,23 @@
-﻿using BSPN.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿//using BSPN.Data;
+//using BSPN.Security;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Web.Http;
+//using System.Web.Http.Results;
 
-namespace BSPN.Controllers
-{
-    public class NASCARController : Controller
-    {
-        [ClaimsAuthorize("View", "NASCARIndex")]
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
-}
+//namespace BSPN.Controllers
+//{
+//    public class NASCARController : ApiController
+//    {
+
+//        [HttpGet]
+//        [ClaimsAuthorize("VIEW", "DRIVERS")]
+//        public JsonResult<List<Driver>> Drivers()
+//        {
+            
+//        }
+
+
+//    }
+//}

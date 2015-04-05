@@ -12,9 +12,9 @@ namespace BSPN.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class SecurityClaim
+    public partial class Claim
     {
-        public SecurityClaim()
+        public Claim()
         {
             this.AspNetRoles = new HashSet<AspNetRole>();
         }

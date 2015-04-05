@@ -23,6 +23,7 @@ namespace BSPN.Data
         public Nullable<System.DateTime> RaceDate { get; set; }
         public string RaceName { get; set; }
         public int TrackId { get; set; }
+        public int Season { get; set; }
     
         public virtual ICollection<RacePick> RacePicks { get; set; }
         public virtual Track Track { get; set; }

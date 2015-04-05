@@ -48,6 +48,11 @@ namespace DataAccess
             return this._dbSet.Find(new object[] { id });
         }
 
+        public virtual IEnumerable<T> FindAll()
+        {
+            return this._context.Set<T>();
+        }
+
         public virtual IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate)
         {
             return this._dbSet.Where<T>(predicate);

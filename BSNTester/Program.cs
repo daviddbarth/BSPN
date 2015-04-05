@@ -11,9 +11,12 @@ namespace BSNTester
         static void Main(string[] args)
         {
             var context = new BSPN.Data.SportsEntities();
-            var repos = new DataAccess.Repository<BSPN.Data.SecurityClaim>(context);
+            var repos = new DataAccess.Repository<BSPN.Data.Driver>(context);
 
-            var claimList = repos.FindAll(r => r.ClaimId > 0);
+            var DriverList = repos.FindAll();
+
+            foreach (var driver in DriverList)
+                Console.WriteLine(driver.LastName);
         }
     }
 }

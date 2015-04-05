@@ -56,6 +56,14 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Claims">
+          <Key>
+            <PropertyRef Name="ClaimId" />
+          </Key>
+          <Property Name="ClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Drivers">
           <Key>
             <PropertyRef Name="DriverId" />
@@ -82,16 +90,9 @@
           <Property Name="RaceDate" Type="datetime" />
           <Property Name="RaceName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="TrackId" Type="int" Nullable="false" />
+          <Property Name="Season" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="SecurityClaims">
-          <Key>
-            <PropertyRef Name="ClaimId" />
-          </Key>
-          <Property Name="ClaimId" Type="int" Nullable="false" />
-          <Property Name="ClaimType" Type="nvarchar(max)" />
-          <Property Name="ClaimValue" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="SecurityRoleClaims">
+        <EntityType Name="RoleClaims">
           <Key>
             <PropertyRef Name="RoleId" />
             <PropertyRef Name="ClaimId" />
@@ -210,26 +211,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SecurityRoleClaims_AspNetRoles_FK">
+        <Association Name="RoleClaims_AspNetRoles_FK">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
-          <End Role="SecurityRoleClaims" Type="Self.SecurityRoleClaims" Multiplicity="*" />
+          <End Role="RoleClaims" Type="Self.RoleClaims" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetRoles">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="SecurityRoleClaims">
+            <Dependent Role="RoleClaims">
               <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SecurityRoleClaims_SecurityClaims_FK">
-          <End Role="SecurityClaims" Type="Self.SecurityClaims" Multiplicity="1" />
-          <End Role="SecurityRoleClaims" Type="Self.SecurityRoleClaims" Multiplicity="*" />
+        <Association Name="RoleClaims_Claims_FK">
+          <End Role="Claims" Type="Self.Claims" Multiplicity="1" />
+          <End Role="RoleClaims" Type="Self.RoleClaims" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SecurityClaims">
+            <Principal Role="Claims">
               <PropertyRef Name="ClaimId" />
             </Principal>
-            <Dependent Role="SecurityRoleClaims">
+            <Dependent Role="RoleClaims">
               <PropertyRef Name="ClaimId" />
             </Dependent>
           </ReferentialConstraint>
@@ -240,11 +241,11 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Claims" EntityType="Self.Claims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RacePicks" EntityType="Self.RacePicks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Races" EntityType="Self.Races" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SecurityClaims" EntityType="Self.SecurityClaims" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SecurityRoleClaims" EntityType="Self.SecurityRoleClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleClaims" EntityType="Self.RoleClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tracks" EntityType="Self.Tracks" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -278,13 +279,13 @@
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="Races" EntitySet="Races" />
           </AssociationSet>
-          <AssociationSet Name="SecurityRoleClaims_AspNetRoles_FK" Association="Self.SecurityRoleClaims_AspNetRoles_FK">
+          <AssociationSet Name="RoleClaims_AspNetRoles_FK" Association="Self.RoleClaims_AspNetRoles_FK">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="SecurityRoleClaims" EntitySet="SecurityRoleClaims" />
+            <End Role="RoleClaims" EntitySet="RoleClaims" />
           </AssociationSet>
-          <AssociationSet Name="SecurityRoleClaims_SecurityClaims_FK" Association="Self.SecurityRoleClaims_SecurityClaims_FK">
-            <End Role="SecurityClaims" EntitySet="SecurityClaims" />
-            <End Role="SecurityRoleClaims" EntitySet="SecurityRoleClaims" />
+          <AssociationSet Name="RoleClaims_Claims_FK" Association="Self.RoleClaims_Claims_FK">
+            <End Role="Claims" EntitySet="Claims" />
+            <End Role="RoleClaims" EntitySet="RoleClaims" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -298,7 +299,7 @@
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
-          <NavigationProperty Name="SecurityClaims" Relationship="Self.SecurityRoleClaims" FromRole="AspNetRoles" ToRole="SecurityClaims" />
+          <NavigationProperty Name="Claims" Relationship="SportsModel.RoleClaims" FromRole="AspNetRole" ToRole="Claim" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
@@ -342,15 +343,6 @@
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_AspNetUsers_FK" FromRole="AspNetUser" ToRole="RacePick" />
         </EntityType>
-        <EntityType Name="SecurityClaim">
-          <Key>
-            <PropertyRef Name="ClaimId" />
-          </Key>
-          <Property Name="ClaimId" Type="Int32" Nullable="false" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.SecurityRoleClaims" FromRole="SecurityClaims" ToRole="AspNetRoles" />
-        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -383,16 +375,11 @@
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <Association Name="SecurityRoleClaims">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="SecurityClaims" Type="Self.SecurityClaim" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="SportsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="SecurityClaims" EntityType="Self.SecurityClaim" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -404,10 +391,6 @@
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <AssociationSet Name="SecurityRoleClaims" Association="Self.SecurityRoleClaims">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="SecurityClaims" EntitySet="SecurityClaims" />
           </AssociationSet>
           <EntitySet Name="Drivers" EntityType="SportsModel.Driver" />
           <EntitySet Name="RacePicks" EntityType="SportsModel.RacePick" />
@@ -428,6 +411,11 @@
           <AssociationSet Name="Races_Tracks_FK" Association="SportsModel.Races_Tracks_FK">
             <End Role="Track" EntitySet="Tracks" />
             <End Role="Race" EntitySet="Races" />
+          </AssociationSet>
+          <EntitySet Name="Claims" EntityType="SportsModel.Claim" />
+          <AssociationSet Name="RoleClaims" Association="SportsModel.RoleClaims">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="Claim" EntitySet="Claims" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Driver">
@@ -462,6 +450,7 @@
           <Property Name="TrackId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_Races_FK" FromRole="Race" ToRole="RacePick" />
           <NavigationProperty Name="Track" Relationship="SportsModel.Races_Tracks_FK" FromRole="Race" ToRole="Track" />
+          <Property Name="Season" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Track">
           <Key>
@@ -519,6 +508,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Claim">
+          <Key>
+            <PropertyRef Name="ClaimId" />
+          </Key>
+          <Property Name="ClaimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoles" Relationship="SportsModel.RoleClaims" FromRole="Claim" ToRole="AspNetRole" />
+        </EntityType>
+        <Association Name="RoleClaims">
+          <End Type="SportsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="SportsModel.Claim" Role="Claim" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -570,29 +572,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SecurityClaims">
-            <EntityTypeMapping TypeName="SportsModel.SecurityClaim">
-              <MappingFragment StoreEntitySet="SecurityClaims">
-                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="SportsModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
             <EndProperty Name="AspNetUsers">
               <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="SecurityRoleClaims" TypeName="SportsModel.SecurityRoleClaims" StoreEntitySet="SecurityRoleClaims">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="SecurityClaims">
-              <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
             </EndProperty>
           </AssociationSetMapping>
           <EntitySetMapping Name="Drivers">
@@ -618,6 +603,7 @@
           <EntitySetMapping Name="Races">
             <EntityTypeMapping TypeName="SportsModel.Race">
               <MappingFragment StoreEntitySet="Races">
+                <ScalarProperty Name="Season" ColumnName="Season" />
                 <ScalarProperty Name="TrackId" ColumnName="TrackId" />
                 <ScalarProperty Name="RaceName" ColumnName="RaceName" />
                 <ScalarProperty Name="RaceDate" ColumnName="RaceDate" />
@@ -633,6 +619,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Claims">
+            <EntityTypeMapping TypeName="SportsModel.Claim">
+              <MappingFragment StoreEntitySet="Claims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="RoleClaims" TypeName="SportsModel.RoleClaims" StoreEntitySet="RoleClaims">
+            <EndProperty Name="Claim">
+              <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

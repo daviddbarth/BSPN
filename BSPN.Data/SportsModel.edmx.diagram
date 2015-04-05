@@ -14,15 +14,15 @@
         <AssociationConnector Association="SportsModel.Races_Tracks_FK" />
       </Diagram>
       <Diagram DiagramId="e8a7e60e08c842ccae794490fa6b24ba" Name="Security" >
-        <EntityTypeShape EntityType="SportsModel.SecurityClaim" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="SportsModel.AspNetRole" Width="1.5" PointX="0.75" PointY="3.75" />
-        <AssociationConnector Association="SportsModel.SecurityRoleClaims" />
         <EntityTypeShape EntityType="SportsModel.AspNetUser" Width="1.5" PointX="3" PointY="4" />
         <AssociationConnector Association="SportsModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="SportsModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="3.75" />
         <AssociationConnector Association="SportsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <EntityTypeShape EntityType="SportsModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="6.5" />
         <AssociationConnector Association="SportsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <EntityTypeShape EntityType="SportsModel.Claim" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="SportsModel.RoleClaims" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

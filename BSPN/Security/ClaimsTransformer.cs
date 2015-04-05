@@ -20,9 +20,9 @@ namespace BSPN.Security
             AspNetUser aspNetUser = repository.FindAll(u => u.UserName == incomingPrinicipal.Identity.Name).First<AspNetUser>();
             foreach (AspNetRole aspNetRole in aspNetUser.AspNetRoles)
             {
-                foreach (SecurityClaim securityClaim in aspNetRole.SecurityClaims)
+                foreach (BSPN.Data.Claim securityClaim in aspNetRole.Claims)
                 {
-                    ((ClaimsIdentity)incomingPrinicipal.Identity).AddClaim(new Claim(securityClaim.ClaimType, securityClaim.ClaimValue));
+                    ((ClaimsIdentity)incomingPrinicipal.Identity).AddClaim(new System.Security.Claims.Claim(securityClaim.ClaimType, securityClaim.ClaimValue));
                 }
             }
         }
