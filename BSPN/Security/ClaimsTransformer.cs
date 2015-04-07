@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Web;
 
 namespace BSPN.Security
@@ -35,6 +36,7 @@ namespace BSPN.Security
             }
 
             this.AddRoleClaims(incomingPrincipal);
+            Thread.CurrentPrincipal = incomingPrincipal;
 
             return incomingPrincipal;
         }

@@ -24,15 +24,15 @@ namespace BSPN.Security
 
         public static bool CheckAccess(AuthorizationContext context)
         {
-            if (!context.Principal.Identity.IsAuthenticated)
-                return false;
-
-            if (context.Principal.IsInRole("Admin"))
-                return true;
-            else
+            if (context.Principal.Identity.IsAuthenticated)
             {
-                if (context.Principal.HasClaim(context.Resource.First().Value, context.Action.First().Value))
+                if (context.Principal.IsInRole("Admin"))
                     return true;
+                else
+                {
+                    if (context.Principal.HasClaim(context.Resource.First().Value, context.Action.First().Value))
+                        return true;
+                }
             }
 
             return false;

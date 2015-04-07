@@ -24,17 +24,24 @@ namespace BSPN.Security
 
         protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)
         {
-            var filterContext = (AuthorizationContext)httpContext.Items[_authLabel];
-            
             if (!string.IsNullOrWhiteSpace(_action))
             {
                 return ClaimsAuthorization.CheckAccess(_action, _resource);
             }
             else
             {
-                return base.AuthorizeCore(httpContext);
+                var filterContext = (AuthorizationContext)httpContext.Items[_authLabel];
+                return ChecAccess(filterContext);
             }
 
+        }
+
+        private bool ChecAccess(System.Web.Mvc.AuthorizationContext filterContext)
+        {
+            var action = filterContext.RouteData.Values["action"] as string;
+            var controller = filterContext.RouteData.Values["controller"] as string;
+
+            return ClaimsAuthorization.CheckAccess(action, controller);
         }
 
     }
