@@ -1,0 +1,10 @@
+﻿<div ng-controller="DriverListController">
+    <h2>Driver List</h2>
+    <br />
+    <ul>
+        <li ng-repeat="driver in driverList">
+            <a href="#/EditDriver/{{driver.DriverId}}">{{driver.FirstName}} {{driver.LastName}}</a>
+        </li>
+    </ul>
+</div>
+

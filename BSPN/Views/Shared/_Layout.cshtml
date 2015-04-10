@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="BSPNApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/angular.min.js")
-    @Scripts.Render("~/Scripts/App/app.js")
     @Scripts.Render("~/Scripts/angular-route.min.js")
     @Scripts.Render("~/Scripts/angular-resource.min.js")
+    @Scripts.Render("~/Scripts/BSPNApp/BSPNApp.js")
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -39,5 +39,7 @@
         @RenderBody()
         <hr />
     </div>
+    <script src="~/Scripts/BSPNApp/Services/DriverData.js"></script>
+    <script src="~/Scripts/BSPNApp/Controllers/DriversController.js"></script>
 </body>
 </html>

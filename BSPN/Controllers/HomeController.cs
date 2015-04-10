@@ -10,7 +10,7 @@ namespace BSPN.Controllers
 {
     public class HomeController : Controller
     {
-        [ClaimsAuthorize]
+        [ClaimsAuthorize("View", "Home")]
         public ActionResult Index()
         {
             return View();

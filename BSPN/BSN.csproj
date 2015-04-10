@@ -251,6 +251,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\BSN.pubxml" />
+    <Content Include="Scripts\BSPNApp\BSPNApp.js" />
+    <Content Include="Scripts\BSPNApp\Controllers\DriversController.js" />
+    <Content Include="Scripts\BSPNApp\Services\DriverData.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -1017,6 +1020,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\Drivers\DriverList.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
