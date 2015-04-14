@@ -6,23 +6,8 @@ bspnApp.controller('DriverListController', ['$scope', 'driverData',
     }]
 );
 
-
-//studentTrackApp.controller('TeacherListController', ['$scope', 'teacherData',
-//    function TeacherListController($scope, teacherData) {
-
-//        $scope.teacherList = teacherData.getTeacherList();
-//    }]
-//);
-
-//studentTrackApp.controller('TeacherController', ['$scope', '$routeParams', 'teacherData',
-//    function TeacherController($scope, $routeParams, teacherData) {
-
-//        $scope.teacher = teacherData.getTeacher($routeParams.teacherId);
-//        $scope.saveTeacher = function (teacher) {
-//            teacherData.saveTeacher(teacher);
-//        }
-//    }]
-//);
-
-
-
+bspnApp.controller('DriverController', ['$scope', '$routeParams', 'driverData',
+    function DriverController($scope, $routeParams, driverData) {
+        $scope.driver = driverData.getDriver($routeParams.driverId);
+    }]
+);

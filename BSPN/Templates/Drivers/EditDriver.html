@@ -1,0 +1,16 @@
+﻿<div>
+    <h1>Driver Entry</h1>
+</div>
+<div ng-controller="DriverController">
+    <br />
+    <label for="lastName">Last Name:</label>
+    <input id="lastName" ng-model="driver.LastName" />
+    <br /> <br />
+    <label for="firstName">First Name:</label>
+    <input id="firstName" ng-model="driver.FirstName" />
+    <br /> <br />
+    <label for="carNumber">Car Number:</label>
+    <input id="carNumber" ng-model="driver.CarNumber"/>
+    <br /> <br />
+    <button type="submit" ng-click="saveDriver(driver)">Save</button>
+</div>

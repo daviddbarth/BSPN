@@ -31,11 +31,25 @@ namespace BSPN.Controllers
             var driverRepos = new Repository<Driver>(context);
             var driverList = driverRepos.FindAll();
 
-            var x = User.Identity;
-
-            
             return Json(driverList.ToList());
         }
+
+        [AcceptVerbs("GET")]
+        [ClaimsAuthorizeAPI("View", "Drivers")]
+        public JsonResult<Driver> Drivers(int id)
+        {
+            var context = new SportsEntities();
+            var driverRepos = new Repository<Driver>(context);
+            var driver = driverRepos.Find(id);
+
+            return Json(driver);
+        }
+
+        //[AcceptVerbs("PUT")]
+        //public void Drivers(Driver driver)
+        //{
+
+        //}
     }
 
 }
