@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 var bspnApp = angular.module('BSPNApp', ['ngRoute', 'ngResource'])
-    .config(function ($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/ListDrivers',
             {
                 templateUrl: '/Templates/Drivers/DriverList.html'
@@ -10,8 +10,8 @@ var bspnApp = angular.module('BSPNApp', ['ngRoute', 'ngResource'])
             {
                 templateUrl: '/Templates/Drivers/EditDriver.html'
             })
-        .when('/RacePicks',
+        .when('/Races',
             {
-                templateUrl: '/Templates/Races/RacePicks.html'
+                templateUrl: '/Templates/Races/Races.html'
             })
-    });
+    }]);

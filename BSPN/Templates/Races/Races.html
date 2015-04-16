@@ -1,12 +1,9 @@
-﻿<div>
-    <h1>Race Picks</h1>
-</div>
-<div ng-controller="RacesController">
+﻿<div ng-controller="RacesController">
     <h2>Races</h2>
     <br />
     <ul>
         <li ng-repeat="race in raceData">
-            {{race.RaceName}}
+            {{race.RaceName}} - {{race.Track.TrackName}}
         </li>
     </ul>
 </div>

@@ -8,10 +8,14 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/Angular/angular.min.js")
-    @Scripts.Render("~/Scripts/Angular/angular-route.min.js")
-    @Scripts.Render("~/Scripts/Angular/angular-resource.min.js")
-    @Scripts.Render("~/Scripts/BSPNApp/BSPNApp.js")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/application")
+
+    @*@Scripts.Render("~/Scripts/BSPNApp/BSPNApp.js")
+    @Scripts.Render("~/Scripts/BSPNApp/Services/DriverData.js")
+    @Scripts.Render("~/Scripts/BSPNApp/Services/RaceData.js")
+    @Scripts.Render("~/Scripts/BSPNApp/Controllers/DriversController.js")
+    @Scripts.Render("~/Scripts/BSPNApp/Controllers/RacesController.js")*@
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -34,7 +38,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#/ListDrivers">Drivers</a></li>
-                            <li><a href="#/RacePicks">Race Picks</a></li>
+                            <li><a href="#/Races">Races</a></li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("NFL", "Index", "NFL")</li>
@@ -47,7 +51,5 @@
         @RenderBody()
         <hr />
     </div>
-    <script src="~/Scripts/BSPNApp/Services/DriverData.js"></script>
-    <script src="~/Scripts/BSPNApp/Controllers/DriversController.js"></script>
 </body>
 </html>

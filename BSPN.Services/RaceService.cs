@@ -20,6 +20,9 @@ namespace BSPN.Services
             _raceRepos = new Repository<Race>(context);
         }
 
-
+        public IList<Race> GetRaces(int season)
+        {
+            return _raceRepos.FindAll(r => r.Season == season).ToList();
+        }
     }
 }

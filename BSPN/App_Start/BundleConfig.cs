@@ -8,6 +8,24 @@ namespace BSPN
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                        "~/Scripts/Angular/angular.js",
+                        "~/Scripts/Angular/angular-route.js",
+                        "~/Scripts/Angular/angular-resource.js"));
+
+            const string ANGULAR_APP_ROOT = "~/Scripts/BSPNApp/";
+
+            bundles.Add(new ScriptBundle("~/bundles/application")
+                .Include(ANGULAR_APP_ROOT + "BSPNApp.js")
+                .IncludeDirectory(ANGULAR_APP_ROOT, "*.js", true));
+
+            //bundles.Add(new ScriptBundle("~/bundles/application").Include(
+            //        "~/Scripts/BSPNApp/BSPNApp.js",
+            //        "~/Scripts/BSPNApp/Services/DriverData.js",
+            //        "~/Scripts/BSPNApp/Services/RaceData.js",
+            //        "~/Scripts/BSPNApp/Controllers/DriversController.js",
+            //        "~/Scripts/BSPNApp/Controllers/RacesController.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/JQuery/jquery-{version}.js"));
 
