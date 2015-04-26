@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 
+//Race Controller
 namespace BSPN.Controllers
 {
     public class RacesController : ApiController
@@ -37,5 +38,6 @@ namespace BSPN.Controllers
 
             return Json(races.ToList(), serializerSettings);
         }
+
     }
 }

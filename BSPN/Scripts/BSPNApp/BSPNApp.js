@@ -14,4 +14,8 @@ var bspnApp = angular.module('BSPNApp', ['ngRoute', 'ngResource'])
             {
                 templateUrl: '/Templates/Races/Races.html'
             })
+        .when('/RacePicks/:raceId',
+            {
+                templateUrl: '/Templates/Races/RacePicks.html'
+            })
     }]);

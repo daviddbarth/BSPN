@@ -14,9 +14,11 @@ namespace DataAccess
 
         T Find(int id);
 
+        IEnumerable<T> FindAll();
         IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate);
 
         T FindOneOrCreate(Expression<Func<T, bool>> predicate);
+        void Remove(T obj);
     }
 
     public class Repository<T> : IRepository<T> where T : class, new()
@@ -66,6 +68,11 @@ namespace DataAccess
                 t = this.Create();
             }
             return t;
+        }
+
+        public virtual void Remove(T obj)
+        {
+            _context.Set<T>().Remove(obj);
         }
     }
 }

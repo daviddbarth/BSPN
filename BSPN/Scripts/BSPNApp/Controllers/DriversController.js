@@ -6,8 +6,8 @@ bspnApp.controller('DriverListController', ['$scope', 'driverData',
     }]
 );
 
-//bspnApp.controller('DriverController', ['$scope', '$routeParams', 'driverData',
-//    function ($scope, $routeParams, driverData) {
-//        $scope.driver = driverData.getDriver($routeParams.driverId);
-//    }]
-//);
+bspnApp.controller('DriverController', ['$scope', '$routeParams', 'driverData',
+    function ($scope, $routeParams, driverData) {
+        $scope.driver = driverData.getDriver($routeParams.driverId);
+    }]
+);

@@ -19,13 +19,6 @@ namespace BSPN
                 .Include(ANGULAR_APP_ROOT + "BSPNApp.js")
                 .IncludeDirectory(ANGULAR_APP_ROOT, "*.js", true));
 
-            //bundles.Add(new ScriptBundle("~/bundles/application").Include(
-            //        "~/Scripts/BSPNApp/BSPNApp.js",
-            //        "~/Scripts/BSPNApp/Services/DriverData.js",
-            //        "~/Scripts/BSPNApp/Services/RaceData.js",
-            //        "~/Scripts/BSPNApp/Controllers/DriversController.js",
-            //        "~/Scripts/BSPNApp/Controllers/RacesController.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/JQuery/jquery-{version}.js"));
 

@@ -1,14 +1,16 @@
-﻿<div>
-    <h1>Race Picks</h1>
-</div>
-<div ng-controller="RacesController">
-    <h2>Races</h2>
+﻿<div ng-controller="RacePicksController">
+    <h2>Race Picks</h2>
+    {{racePicks.RaceName}} - {{racePicks.TrackName}}
+    <div>
+        <div ng-repeat="driver in racePicks.Drivers">
+            <input type="checkbox" ng-model="driver.Selected" > {{driver.CarNumber}} - {{driver.FirstName}} {{driver.LastName}}
+            <br />
+        </div>
+    </div>
+    <button type="submit" ng-click="saveRacePicks(racePicks)">Save</button>
     <br />
-    <ul>
-        <li ng-repeat="race in raceData">
-            {{race.RaceName}}
-        </li>
-    </ul>
+    <div>
+        {{errorMsg}}
+    </div>
 </div>
-
 

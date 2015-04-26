@@ -203,6 +203,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NASCARController.cs" />
+    <Compile Include="Controllers\RacePicksController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -254,9 +255,11 @@
     <None Include="Properties\PublishProfiles\BSN.pubxml" />
     <Content Include="Scripts\BSPNApp\BSPNApp.js" />
     <Content Include="Scripts\BSPNApp\Controllers\DriversController.js" />
+    <Content Include="Scripts\BSPNApp\Controllers\RacePicksController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacesController.js" />
     <Content Include="Scripts\BSPNApp\Services\DriverData.js" />
     <Content Include="Scripts\BSPNApp\Services\RaceData.js" />
+    <Content Include="Scripts\BSPNApp\Services\RacePicksData.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\Angular\angular-touch.min.js.map" />
     <Content Include="Scripts\Angular\angular-sanitize.min.js.map" />
