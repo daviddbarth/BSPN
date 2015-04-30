@@ -9,7 +9,14 @@ using AutoMapper;
 
 namespace BSPN.Services
 {
-    public class RaceService
+    public interface IRaceService
+    {
+        IList<Race> GetRaces(int season);
+        RacePicks GetRacePicks(string userId, int raceId);
+        void SaveRacePicks(string userId, RacePicks picks);
+    }
+
+    public class RaceService : IRaceService
     {
         private IRepository<Race> _raceRepos;
         private IRepository<Driver> _driverRepos;
@@ -17,13 +24,12 @@ namespace BSPN.Services
         
         private IUnitOfWork _unitOfWork;
 
-        public RaceService()
+        public RaceService(IRepository<Race> raceRepos, IRepository<Driver> driverRepos, IRepository<RacePick> picksRepos, IUnitOfWork unitOfWork)
         {
-            var context = new SportsEntities();
-            _unitOfWork = new UnitOfWork(context);
-            _raceRepos = new Repository<Race>(context);
-            _driverRepos = new Repository<Driver>(context);
-            _picksRepos = new Repository<RacePick>(context);
+            _raceRepos = raceRepos;
+            _driverRepos = driverRepos;
+            _picksRepos = picksRepos;
+            _unitOfWork = unitOfWork;
         }
 
         public IList<Race> GetRaces(int season)

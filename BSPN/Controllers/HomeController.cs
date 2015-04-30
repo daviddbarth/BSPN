@@ -1,4 +1,5 @@
 ﻿using BSPN.Security;
+using BSPN.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace BSPN.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController(IRaceService raceService)
+        {
+            var races = raceService.GetRaces(2015);
+        }
+
         [ClaimsAuthorize("View", "Home")]
         public ActionResult Index()
         {

@@ -14,13 +14,18 @@ namespace BSPN.Controllers
 {
     public class RacePicksController : ApiController
     {
+        private readonly IRaceService _raceService;
+
+        public RacePicksController(IRaceService raceService)
+        {
+            _raceService = raceService;
+        }
+
         [AcceptVerbs("GET")]
         [ClaimsAuthorizeAPI("View", "RacePicks")]
         public JsonResult<RacePicks> Get(int id)
         {
-            var raceService = new RaceService();
-
-            return Json(raceService.GetRacePicks(GetUserId(), id));
+            return Json(_raceService.GetRacePicks(GetUserId(), id));
         }
 
         [AcceptVerbs("POST")]
@@ -29,8 +34,7 @@ namespace BSPN.Controllers
         {
             try
             {
-                var raceService = new RaceService();
-                raceService.SaveRacePicks(GetUserId(), value);
+                _raceService.SaveRacePicks(GetUserId(), value);
             }
             catch(Exception ex)
             {

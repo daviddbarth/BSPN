@@ -1,3 +1,5 @@
+using Ninject.Extensions.Conventions;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BSPN.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BSPN.App_Start.NinjectWebCommon), "Stop")]
 
@@ -12,6 +14,10 @@ namespace BSPN.App_Start
     using Ninject.Web.Common;
 
     using DataAccess;
+    using BSPN.Services;
+    using BSPN.IoC;
+    using Ninject.Web.WebApi;
+    using System.Web.Http;
 
     public static class NinjectWebCommon 
     {
@@ -47,6 +53,8 @@ namespace BSPN.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
+                GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
+
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -63,7 +71,13 @@ namespace BSPN.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
-        }        
+            ProcessingScope.Current = HttpContext.Current;
+            kernel.BindAssemblies(context => ProcessingScope.Current, "BSPN.*.dll", "DataAccess.dll");
+        }      
+     }
+
+    public static class ProcessingScope
+    {
+        public static object Current { get; set; }
     }
 }

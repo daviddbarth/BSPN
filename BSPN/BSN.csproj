@@ -50,6 +50,9 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Extensions.Conventions">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject.Web.Common">
       <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
     </Reference>
@@ -208,9 +211,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Templates\Models\AccountViewModels.cs" />
+    <Compile Include="Templates\Models\IdentityModels.cs" />
+    <Compile Include="Templates\Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AppExtensions.cs" />
     <Compile Include="Security\ClaimsAuthorization.cs" />
@@ -1082,6 +1085,10 @@
     <ProjectReference Include="..\BSPN.Data\BSPN.Data.csproj">
       <Project>{cf3ac235-dd1c-47bd-8556-cf8269c781dd}</Project>
       <Name>BSPN.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSPN.IoC\BSPN.IoC.csproj">
+      <Project>{a6b4a186-fcc6-414a-bdc4-724a64232562}</Project>
+      <Name>BSPN.IoC</Name>
     </ProjectReference>
     <ProjectReference Include="..\BSPN.Services\BSPN.Services.csproj">
       <Project>{422a9e42-ee3c-4217-8045-61a9903afe2b}</Project>
