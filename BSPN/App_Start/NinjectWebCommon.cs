@@ -71,13 +71,8 @@ namespace BSPN.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            ProcessingScope.Current = HttpContext.Current;
-            kernel.BindAssemblies(context => ProcessingScope.Current, "BSPN.*.dll", "DataAccess.dll");
+            kernel.BindAssemblies(context => HttpContext.Current, "BSPN.*.dll", "DataAccess.dll");
         }      
      }
 
-    public static class ProcessingScope
-    {
-        public static object Current { get; set; }
-    }
 }
