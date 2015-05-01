@@ -1,5 +1,3 @@
-using Ninject.Extensions.Conventions;
-
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BSPN.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BSPN.App_Start.NinjectWebCommon), "Stop")]
 
@@ -13,15 +11,13 @@ namespace BSPN.App_Start
     using Ninject;
     using Ninject.Web.Common;
 
-    using DataAccess;
-    using BSPN.Services;
-    using BSPN.IoC;
+    using IoC;
     using Ninject.Web.WebApi;
     using System.Web.Http;
 
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -30,7 +26,7 @@ namespace BSPN.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
         
         /// <summary>
@@ -38,7 +34,7 @@ namespace BSPN.App_Start
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
         
         /// <summary>
