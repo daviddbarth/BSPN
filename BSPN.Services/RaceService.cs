@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess;
 using BSPN.Data;
 using AutoMapper;
@@ -18,11 +16,11 @@ namespace BSPN.Services
 
     public class RaceService : IRaceService
     {
-        private IRepository<Race> _raceRepos;
-        private IRepository<Driver> _driverRepos;
-        private IRepository<RacePick> _picksRepos;
+        private readonly IRepository<Race> _raceRepos;
+        private readonly IRepository<Driver> _driverRepos;
+        private readonly IRepository<RacePick> _picksRepos;
         
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RaceService(IRepository<Race> raceRepos, IRepository<Driver> driverRepos, IRepository<RacePick> picksRepos, IUnitOfWork unitOfWork)
         {
@@ -78,7 +76,7 @@ namespace BSPN.Services
 
         }
 
-        private void ValidateDriverPicks(List<Driver> selectedDrivers)
+        private static void ValidateDriverPicks(List<Driver> selectedDrivers)
         {
             if (selectedDrivers.Count != 5)
                 throw new ApplicationException("Invalid Driver Picks: You must pick 5 drivers.");
