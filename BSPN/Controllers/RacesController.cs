@@ -21,27 +21,23 @@ namespace BSPN.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public JsonResult<List<Race>> GetRaces(int id)
+        public HttpResponseMessage GetRaces(int id)
         {
-            var races = _raceService.GetRaces(id);
-
-            var serializerSettings = new JsonSerializerSettings();
-            serializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-
-            return Json(races.ToList(), serializerSettings);
+            return RaceData(id);
         }
 
         [AcceptVerbs("GET")]
-        public JsonResult<List<Race>> GetRaces()
+        public HttpResponseMessage GetRaces()
         {
-            var season = DateTime.Now.Year;
-            var races = _raceService.GetRaces(season);
-
-            var serializerSettings = new JsonSerializerSettings();
-            serializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-
-            return Json(races.ToList(), serializerSettings);
+            return RaceData(DateTime.Now.Year);
         }
 
+        private HttpResponseMessage RaceData(int season)
+        {
+            var races = _raceService.GetRaces(season);
+            var raceData = races.Select(r => new { r.RaceName, r.Track.TrackName, r.RaceId });
+
+            return Request.CreateResponse(HttpStatusCode.OK, raceData);
+        }
     }
 }
