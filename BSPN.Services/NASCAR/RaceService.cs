@@ -10,8 +10,9 @@ namespace BSPN.Services
     public interface IRaceService
     {
         IList<Race> GetRaces(int season);
-        RacePicks GetRacePicks(string userId, int raceId);
-        void SaveRacePicks(string userId, RacePicks picks);
+        RaceInfo GetRacePicks(string userId, int raceId);
+        void SaveRacePicks(string userId, RaceInfo picks);
+        RaceInfo GetRaceFinishes(int raceId);
     }
 
     public class RaceService : IRaceService
@@ -19,14 +20,18 @@ namespace BSPN.Services
         private readonly IRepository<Race> _raceRepos;
         private readonly IRepository<Driver> _driverRepos;
         private readonly IRepository<RacePick> _picksRepos;
-        
+        private readonly IRepository<RaceFinish> _raceScoreRepos;
+
         private readonly IUnitOfWork _unitOfWork;
 
-        public RaceService(IRepository<Race> raceRepos, IRepository<Driver> driverRepos, IRepository<RacePick> picksRepos, IUnitOfWork unitOfWork)
+        public RaceService(IRepository<Race> raceRepos, IRepository<Driver> driverRepos, IRepository<RacePick> picksRepos,
+            IRepository<RaceFinish> raceScoreRepos, IUnitOfWork unitOfWork)
         {
             _raceRepos = raceRepos;
             _driverRepos = driverRepos;
             _picksRepos = picksRepos;
+            _raceScoreRepos = raceScoreRepos;
+
             _unitOfWork = unitOfWork;
         }
 
@@ -35,17 +40,17 @@ namespace BSPN.Services
             return _raceRepos.FindAll(r => r.Season == season).ToList();
         }
 
-        public RacePicks GetRacePicks(string userId, int raceId)
+        public RaceInfo GetRacePicks(string userId, int raceId)
         {
             var currentPicks = _picksRepos.FindAll(p => p.RaceId == raceId && p.UserId == userId);
             var drivers = _driverRepos.FindAll().ToList();
             var race = _raceRepos.Find(raceId);
 
-            Mapper.CreateMap<Race, RacePicks>();
-            Mapper.CreateMap<Driver, RacePickDriver>();
+            Mapper.CreateMap<Race, RaceInfo>();
+            Mapper.CreateMap<Driver, RaceDriver>();
 
-            var racePicks = Mapper.Map<RacePicks>(race);
-            var racePickDrivers = Mapper.Map<List<Driver>, List<RacePickDriver>>(drivers);
+            var racePicks = Mapper.Map<RaceInfo>(race);
+            var racePickDrivers = Mapper.Map<List<Driver>, List<RaceDriver>>(drivers);
 
             racePicks.Drivers = racePickDrivers;
 
@@ -58,7 +63,7 @@ namespace BSPN.Services
             return racePicks;
         }
 
-        public void SaveRacePicks(string userId, RacePicks picks)
+        public void SaveRacePicks(string userId, RaceInfo picks)
         {
             var selectedDrivers = picks.SelectedDrivers();
 
@@ -83,6 +88,32 @@ namespace BSPN.Services
 
         }
 
+        public RaceInfo GetRaceFinishes(int raceId)
+        {
+            var race = _raceRepos.Find(raceId);
+            var selectedDrivers = race.RacePicks
+                .Select(d => new { driverId = d.DriverId })
+                .Distinct();
+
+
+            Mapper.CreateMap<Race, RaceInfo>();
+            Mapper.CreateMap<Driver, RaceDriver>();
+
+            var raceInfo = Mapper.Map<RaceInfo>(race);
+            raceInfo.TrackName = race.Track.TrackName;
+
+            selectedDrivers.ToList().ForEach(d => raceInfo.Drivers.Add(GetRaceDriver((int)d.driverId)));
+
+            return raceInfo;
+        }
+
+        private RaceDriver GetRaceDriver(int driverId)
+        {
+            var driver = _driverRepos.Find(driverId);
+            var raceDriver = Mapper.Map<RaceDriver>(driver);
+
+            return raceDriver;
+
+        }
     }
 }
-;

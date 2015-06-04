@@ -94,8 +94,23 @@
     <Compile Include="Driver.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NFLGame.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NFLSeason.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NFLTeam.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NFLWeek.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Race.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RaceFinish.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RacePick.cs">

@@ -34,5 +34,10 @@ namespace BSPN.Data
         public virtual DbSet<Race> Races { get; set; }
         public virtual DbSet<Track> Tracks { get; set; }
         public virtual DbSet<Claim> Claims { get; set; }
+        public virtual DbSet<RaceFinish> RaceFinishes { get; set; }
+        public virtual DbSet<NFLGame> NFLGames { get; set; }
+        public virtual DbSet<NFLSeason> NFLSeasons { get; set; }
+        public virtual DbSet<NFLTeam> NFLTeams { get; set; }
+        public virtual DbSet<NFLWeek> NFLWeeks { get; set; }
     }
 }

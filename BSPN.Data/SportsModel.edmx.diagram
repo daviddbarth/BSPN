@@ -5,14 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="72ac781c187840e5832d8338bbd8745d" Name="NASCAR">
-        <EntityTypeShape EntityType="SportsModel.Driver" Width="1.5" PointX="3" PointY="4" />
+        <EntityTypeShape EntityType="SportsModel.Driver" Width="1.5" PointX="8.625" PointY="2.875" />
         <EntityTypeShape EntityType="SportsModel.RacePick" Width="1.5" PointX="5.25" PointY="1" />
         <EntityTypeShape EntityType="SportsModel.Race" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="SportsModel.Track" Width="1.5" PointX="0.75" PointY="1.375" />
         <AssociationConnector Association="SportsModel.RacePicks_Drivers_FK" />
         <AssociationConnector Association="SportsModel.RacePicks_Races_FK" />
         <AssociationConnector Association="SportsModel.Races_Tracks_FK" />
-      </Diagram>
+        <EntityTypeShape EntityType="SportsModel.RaceFinish" Width="1.5" PointX="4" PointY="4.375" />
+        <AssociationConnector Association="SportsModel.DriversRaceFinishesFK" />
+        <AssociationConnector Association="SportsModel.RacesRaceFinishesFK" />
+        </Diagram>
       <Diagram DiagramId="e8a7e60e08c842ccae794490fa6b24ba" Name="Security" >
         <EntityTypeShape EntityType="SportsModel.AspNetRole" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="SportsModel.AspNetUser" Width="1.5" PointX="3" PointY="4" />
@@ -23,6 +26,16 @@
         <AssociationConnector Association="SportsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <EntityTypeShape EntityType="SportsModel.Claim" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="SportsModel.RoleClaims" />
+      </Diagram>
+      <Diagram DiagramId="b839b0922faf4721bca7dcaca37eee93" Name="NFL" >
+        <EntityTypeShape EntityType="SportsModel.NFLGame" Width="1.5" PointX="4.625" PointY="0.5" />
+        <EntityTypeShape EntityType="SportsModel.NFLSeason" Width="1.5" PointX="4.625" PointY="3.875" />
+        <EntityTypeShape EntityType="SportsModel.NFLTeam" Width="1.5" PointX="1.75" PointY="0.5" />
+        <EntityTypeShape EntityType="SportsModel.NFLWeek" Width="1.5" PointX="1.75" PointY="3.125" />
+        <AssociationConnector Association="SportsModel.NFLHomeTeams_NFLGames_FK" />
+        <AssociationConnector Association="SportsModel.NFLVisitingTeams_NFLGames_FK" />
+        <AssociationConnector Association="SportsModel.NFLWeeks_NFLGames_FK" />
+        <AssociationConnector Association="SportsModel.NFLSeasons_NFLWeeks_FK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

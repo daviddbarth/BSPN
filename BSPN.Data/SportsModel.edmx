@@ -73,6 +73,50 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="20" />
           <Property Name="CarNumber" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="NFLGames">
+          <Key>
+            <PropertyRef Name="NFLGamesId" />
+          </Key>
+          <Property Name="NFLGamesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NFLWeekId" Type="int" />
+          <Property Name="GameTime" Type="datetime" />
+          <Property Name="HomeTeamId" Type="int" />
+          <Property Name="VisitingTeamId" Type="int" />
+          <Property Name="HomeTeamScore" Type="int" />
+          <Property Name="VisitingTeamScore" Type="int" />
+        </EntityType>
+        <EntityType Name="NFLSeasons">
+          <Key>
+            <PropertyRef Name="NFLSeasonId" />
+          </Key>
+          <Property Name="NFLSeasonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SeasonDescription" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NFLTeams">
+          <Key>
+            <PropertyRef Name="NFLTeamId" />
+          </Key>
+          <Property Name="NFLTeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="TeamName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="NFLWeeks">
+          <Key>
+            <PropertyRef Name="NFLWeekId" />
+          </Key>
+          <Property Name="NFLWeekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NFLSeasonId" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RaceFinishes">
+          <Key>
+            <PropertyRef Name="RaceId" />
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="RaceId" Type="int" Nullable="false" />
+          <Property Name="DriverId" Type="int" Nullable="false" />
+          <Property Name="Position" Type="int" />
+        </EntityType>
         <EntityType Name="RacePicks">
           <Key>
             <PropertyRef Name="RacePickId" />
@@ -107,6 +151,18 @@
           <Property Name="TrackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TrackName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="DriversRaceFinishesFK">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="RaceFinishes" Type="Self.RaceFinishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="RaceFinishes">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -163,6 +219,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="NFLHomeTeams_NFLGames_FK">
+          <End Role="NFLTeams" Type="Self.NFLTeams" Multiplicity="0..1" />
+          <End Role="NFLGames" Type="Self.NFLGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLTeams">
+              <PropertyRef Name="NFLTeamId" />
+            </Principal>
+            <Dependent Role="NFLGames">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLSeasons_NFLWeeks_FK">
+          <End Role="NFLSeasons" Type="Self.NFLSeasons" Multiplicity="0..1" />
+          <End Role="NFLWeeks" Type="Self.NFLWeeks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLSeasons">
+              <PropertyRef Name="NFLSeasonId" />
+            </Principal>
+            <Dependent Role="NFLWeeks">
+              <PropertyRef Name="NFLSeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLVisitingTeams_NFLGames_FK">
+          <End Role="NFLTeams" Type="Self.NFLTeams" Multiplicity="0..1" />
+          <End Role="NFLGames" Type="Self.NFLGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLTeams">
+              <PropertyRef Name="NFLTeamId" />
+            </Principal>
+            <Dependent Role="NFLGames">
+              <PropertyRef Name="VisitingTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLWeeks_NFLGames_FK">
+          <End Role="NFLWeeks" Type="Self.NFLWeeks" Multiplicity="0..1" />
+          <End Role="NFLGames" Type="Self.NFLGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLWeeks">
+              <PropertyRef Name="NFLWeekId" />
+            </Principal>
+            <Dependent Role="NFLGames">
+              <PropertyRef Name="NFLWeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="RacePicks_AspNetUsers_FK">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="RacePicks" Type="Self.RacePicks" Multiplicity="*" />
@@ -211,6 +315,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="RacesRaceFinishesFK">
+          <End Role="Races" Type="Self.Races" Multiplicity="1" />
+          <End Role="RaceFinishes" Type="Self.RaceFinishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Races">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="RaceFinishes">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="RoleClaims_AspNetRoles_FK">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
           <End Role="RoleClaims" Type="Self.RoleClaims" Multiplicity="*" />
@@ -243,10 +359,19 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Claims" EntityType="Self.Claims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NFLGames" EntityType="Self.NFLGames" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NFLSeasons" EntityType="Self.NFLSeasons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NFLTeams" EntityType="Self.NFLTeams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NFLWeeks" EntityType="Self.NFLWeeks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RaceFinishes" EntityType="Self.RaceFinishes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RacePicks" EntityType="Self.RacePicks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Races" EntityType="Self.Races" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleClaims" EntityType="Self.RoleClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tracks" EntityType="Self.Tracks" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="DriversRaceFinishesFK" Association="Self.DriversRaceFinishesFK">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="RaceFinishes" EntitySet="RaceFinishes" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -263,6 +388,22 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <AssociationSet Name="NFLHomeTeams_NFLGames_FK" Association="Self.NFLHomeTeams_NFLGames_FK">
+            <End Role="NFLTeams" EntitySet="NFLTeams" />
+            <End Role="NFLGames" EntitySet="NFLGames" />
+          </AssociationSet>
+          <AssociationSet Name="NFLSeasons_NFLWeeks_FK" Association="Self.NFLSeasons_NFLWeeks_FK">
+            <End Role="NFLSeasons" EntitySet="NFLSeasons" />
+            <End Role="NFLWeeks" EntitySet="NFLWeeks" />
+          </AssociationSet>
+          <AssociationSet Name="NFLVisitingTeams_NFLGames_FK" Association="Self.NFLVisitingTeams_NFLGames_FK">
+            <End Role="NFLTeams" EntitySet="NFLTeams" />
+            <End Role="NFLGames" EntitySet="NFLGames" />
+          </AssociationSet>
+          <AssociationSet Name="NFLWeeks_NFLGames_FK" Association="Self.NFLWeeks_NFLGames_FK">
+            <End Role="NFLWeeks" EntitySet="NFLWeeks" />
+            <End Role="NFLGames" EntitySet="NFLGames" />
+          </AssociationSet>
           <AssociationSet Name="RacePicks_AspNetUsers_FK" Association="Self.RacePicks_AspNetUsers_FK">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RacePicks" EntitySet="RacePicks" />
@@ -278,6 +419,10 @@
           <AssociationSet Name="Races_Tracks_FK" Association="Self.Races_Tracks_FK">
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="Races" EntitySet="Races" />
+          </AssociationSet>
+          <AssociationSet Name="RacesRaceFinishesFK" Association="Self.RacesRaceFinishesFK">
+            <End Role="Races" EntitySet="Races" />
+            <End Role="RaceFinishes" EntitySet="RaceFinishes" />
           </AssociationSet>
           <AssociationSet Name="RoleClaims_AspNetRoles_FK" Association="Self.RoleClaims_AspNetRoles_FK">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -417,7 +562,36 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="Claim" EntitySet="Claims" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="RaceFinishes" EntityType="SportsModel.RaceFinish" />
+          <AssociationSet Name="DriversRaceFinishesFK" Association="SportsModel.DriversRaceFinishesFK">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="RaceFinish" EntitySet="RaceFinishes" />
+          </AssociationSet>
+          <AssociationSet Name="RacesRaceFinishesFK" Association="SportsModel.RacesRaceFinishesFK">
+            <End Role="Race" EntitySet="Races" />
+            <End Role="RaceFinish" EntitySet="RaceFinishes" />
+          </AssociationSet>
+          <EntitySet Name="NFLGames" EntityType="SportsModel.NFLGame" />
+          <EntitySet Name="NFLSeasons" EntityType="SportsModel.NFLSeason" />
+          <EntitySet Name="NFLTeams" EntityType="SportsModel.NFLTeam" />
+          <EntitySet Name="NFLWeeks" EntityType="SportsModel.NFLWeek" />
+          <AssociationSet Name="NFLHomeTeams_NFLGames_FK" Association="SportsModel.NFLHomeTeams_NFLGames_FK">
+            <End Role="NFLTeam" EntitySet="NFLTeams" />
+            <End Role="NFLGame" EntitySet="NFLGames" />
+          </AssociationSet>
+          <AssociationSet Name="NFLVisitingTeams_NFLGames_FK" Association="SportsModel.NFLVisitingTeams_NFLGames_FK">
+            <End Role="NFLTeam" EntitySet="NFLTeams" />
+            <End Role="NFLGame" EntitySet="NFLGames" />
+          </AssociationSet>
+          <AssociationSet Name="NFLWeeks_NFLGames_FK" Association="SportsModel.NFLWeeks_NFLGames_FK">
+            <End Role="NFLWeek" EntitySet="NFLWeeks" />
+            <End Role="NFLGame" EntitySet="NFLGames" />
+          </AssociationSet>
+          <AssociationSet Name="NFLSeasons_NFLWeeks_FK" Association="SportsModel.NFLSeasons_NFLWeeks_FK">
+            <End Role="NFLSeason" EntitySet="NFLSeasons" />
+            <End Role="NFLWeek" EntitySet="NFLWeeks" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Driver">
           <Key>
             <PropertyRef Name="DriverId" />
@@ -427,6 +601,7 @@
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CarNumber" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_Drivers_FK" FromRole="Driver" ToRole="RacePick" />
+          <NavigationProperty Name="RaceFinishes" Relationship="SportsModel.DriversRaceFinishesFK" FromRole="Driver" ToRole="RaceFinish" />
         </EntityType>
         <EntityType Name="RacePick">
           <Key>
@@ -451,6 +626,7 @@
           <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_Races_FK" FromRole="Race" ToRole="RacePick" />
           <NavigationProperty Name="Track" Relationship="SportsModel.Races_Tracks_FK" FromRole="Race" ToRole="Track" />
           <Property Name="Season" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RaceFinishes" Relationship="SportsModel.RacesRaceFinishesFK" FromRole="Race" ToRole="RaceFinish" />
         </EntityType>
         <EntityType Name="Track">
           <Key>
@@ -521,7 +697,133 @@
           <End Type="SportsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="SportsModel.Claim" Role="Claim" Multiplicity="*" />
         </Association>
-      </Schema>
+        <EntityType Name="RaceFinish">
+          <Key>
+            <PropertyRef Name="RaceId" />
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="RaceId" Type="Int32" Nullable="false" />
+          <Property Name="DriverId" Type="Int32" Nullable="false" />
+          <Property Name="Position" Type="Int32" />
+          <NavigationProperty Name="Driver" Relationship="SportsModel.DriversRaceFinishesFK" FromRole="RaceFinish" ToRole="Driver" />
+          <NavigationProperty Name="Race" Relationship="SportsModel.RacesRaceFinishesFK" FromRole="RaceFinish" ToRole="Race" />
+        </EntityType>
+        <Association Name="DriversRaceFinishesFK">
+          <End Type="SportsModel.Driver" Role="Driver" Multiplicity="1" />
+          <End Type="SportsModel.RaceFinish" Role="RaceFinish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="RaceFinish">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RacesRaceFinishesFK">
+          <End Type="SportsModel.Race" Role="Race" Multiplicity="1" />
+          <End Type="SportsModel.RaceFinish" Role="RaceFinish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="RaceFinish">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NFLGame">
+          <Key>
+            <PropertyRef Name="NFLGamesId" />
+          </Key>
+          <Property Name="NFLGamesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NFLWeekId" Type="Int32" />
+          <Property Name="GameTime" Type="DateTime" Precision="3" />
+          <Property Name="HomeTeamId" Type="Int32" />
+          <Property Name="VisitingTeamId" Type="Int32" />
+          <Property Name="HomeTeamScore" Type="Int32" />
+          <Property Name="VisitingTeamScore" Type="Int32" />
+          <NavigationProperty Name="NFLTeam" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
+          <NavigationProperty Name="NFLTeam1" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
+          <NavigationProperty Name="NFLWeek" Relationship="SportsModel.NFLWeeks_NFLGames_FK" FromRole="NFLGame" ToRole="NFLWeek" />
+        </EntityType>
+        <EntityType Name="NFLSeason">
+          <Key>
+            <PropertyRef Name="NFLSeasonId" />
+          </Key>
+          <Property Name="NFLSeasonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SeasonDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NFLWeeks" Relationship="SportsModel.NFLSeasons_NFLWeeks_FK" FromRole="NFLSeason" ToRole="NFLWeek" />
+        </EntityType>
+        <EntityType Name="NFLTeam">
+          <Key>
+            <PropertyRef Name="NFLTeamId" />
+          </Key>
+          <Property Name="NFLTeamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TeamName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NFLGames" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
+          <NavigationProperty Name="NFLGames1" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
+        </EntityType>
+        <EntityType Name="NFLWeek">
+          <Key>
+            <PropertyRef Name="NFLWeekId" />
+          </Key>
+          <Property Name="NFLWeekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NFLSeasonId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NFLGames" Relationship="SportsModel.NFLWeeks_NFLGames_FK" FromRole="NFLWeek" ToRole="NFLGame" />
+          <NavigationProperty Name="NFLSeason" Relationship="SportsModel.NFLSeasons_NFLWeeks_FK" FromRole="NFLWeek" ToRole="NFLSeason" />
+        </EntityType>
+        <Association Name="NFLHomeTeams_NFLGames_FK">
+          <End Type="SportsModel.NFLTeam" Role="NFLTeam" Multiplicity="0..1" />
+          <End Type="SportsModel.NFLGame" Role="NFLGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLTeam">
+              <PropertyRef Name="NFLTeamId" />
+            </Principal>
+            <Dependent Role="NFLGame">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLVisitingTeams_NFLGames_FK">
+          <End Type="SportsModel.NFLTeam" Role="NFLTeam" Multiplicity="0..1" />
+          <End Type="SportsModel.NFLGame" Role="NFLGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLTeam">
+              <PropertyRef Name="NFLTeamId" />
+            </Principal>
+            <Dependent Role="NFLGame">
+              <PropertyRef Name="VisitingTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLWeeks_NFLGames_FK">
+          <End Type="SportsModel.NFLWeek" Role="NFLWeek" Multiplicity="0..1" />
+          <End Type="SportsModel.NFLGame" Role="NFLGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLWeek">
+              <PropertyRef Name="NFLWeekId" />
+            </Principal>
+            <Dependent Role="NFLGame">
+              <PropertyRef Name="NFLWeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLSeasons_NFLWeeks_FK">
+          <End Type="SportsModel.NFLSeason" Role="NFLSeason" Multiplicity="0..1" />
+          <End Type="SportsModel.NFLWeek" Role="NFLWeek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLSeason">
+              <PropertyRef Name="NFLSeasonId" />
+            </Principal>
+            <Dependent Role="NFLWeek">
+              <PropertyRef Name="NFLSeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -636,6 +938,54 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="RaceFinishes">
+            <EntityTypeMapping TypeName="SportsModel.RaceFinish">
+              <MappingFragment StoreEntitySet="RaceFinishes">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NFLGames">
+            <EntityTypeMapping TypeName="SportsModel.NFLGame">
+              <MappingFragment StoreEntitySet="NFLGames">
+                <ScalarProperty Name="VisitingTeamScore" ColumnName="VisitingTeamScore" />
+                <ScalarProperty Name="HomeTeamScore" ColumnName="HomeTeamScore" />
+                <ScalarProperty Name="VisitingTeamId" ColumnName="VisitingTeamId" />
+                <ScalarProperty Name="HomeTeamId" ColumnName="HomeTeamId" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="NFLWeekId" ColumnName="NFLWeekId" />
+                <ScalarProperty Name="NFLGamesId" ColumnName="NFLGamesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NFLSeasons">
+            <EntityTypeMapping TypeName="SportsModel.NFLSeason">
+              <MappingFragment StoreEntitySet="NFLSeasons">
+                <ScalarProperty Name="SeasonDescription" ColumnName="SeasonDescription" />
+                <ScalarProperty Name="NFLSeasonId" ColumnName="NFLSeasonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NFLTeams">
+            <EntityTypeMapping TypeName="SportsModel.NFLTeam">
+              <MappingFragment StoreEntitySet="NFLTeams">
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="NFLTeamId" ColumnName="NFLTeamId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NFLWeeks">
+            <EntityTypeMapping TypeName="SportsModel.NFLWeek">
+              <MappingFragment StoreEntitySet="NFLWeeks">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NFLSeasonId" ColumnName="NFLSeasonId" />
+                <ScalarProperty Name="NFLWeekId" ColumnName="NFLWeekId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSPN.IoC", "BSPN.IoC\BSPN.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSPN.Services", "BSPN.Services\BSPN.Services.csproj", "{422A9E42-EE3C-4217-8045-61A9903AFE2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSPN.Transformation", "BSPN.Transformation\BSPN.Transformation.csproj", "{D255D0D2-70DB-4598-A2F8-9BCF83D7009F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{422A9E42-EE3C-4217-8045-61A9903AFE2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{422A9E42-EE3C-4217-8045-61A9903AFE2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{422A9E42-EE3C-4217-8045-61A9903AFE2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D255D0D2-70DB-4598-A2F8-9BCF83D7009F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D255D0D2-70DB-4598-A2F8-9BCF83D7009F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D255D0D2-70DB-4598-A2F8-9BCF83D7009F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D255D0D2-70DB-4598-A2F8-9BCF83D7009F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -61,6 +61,10 @@
       <Project>{cf3ac235-dd1c-47bd-8556-cf8269c781dd}</Project>
       <Name>BSPN.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BSPN.Services\BSPN.Services.csproj">
+      <Project>{422a9e42-ee3c-4217-8045-61a9903afe2b}</Project>
+      <Name>BSPN.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{8e336553-4072-4af8-916d-c27874eb7ced}</Project>
       <Name>DataAccess</Name>

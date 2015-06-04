@@ -12,20 +12,16 @@ namespace BSPN.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Driver
+    public partial class NFLSeason
     {
-        public Driver()
+        public NFLSeason()
         {
-            this.RacePicks = new HashSet<RacePick>();
-            this.RaceFinishes = new HashSet<RaceFinish>();
+            this.NFLWeeks = new HashSet<NFLWeek>();
         }
     
-        public int DriverId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int CarNumber { get; set; }
+        public int NFLSeasonId { get; set; }
+        public string SeasonDescription { get; set; }
     
-        public virtual ICollection<RacePick> RacePicks { get; set; }
-        public virtual ICollection<RaceFinish> RaceFinishes { get; set; }
+        public virtual ICollection<NFLWeek> NFLWeeks { get; set; }
     }
 }

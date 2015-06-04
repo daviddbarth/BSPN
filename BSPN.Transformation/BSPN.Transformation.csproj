@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{422A9E42-EE3C-4217-8045-61A9903AFE2B}</ProjectGuid>
+    <ProjectGuid>{D255D0D2-70DB-4598-A2F8-9BCF83D7009F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BSPN.Services</RootNamespace>
-    <AssemblyName>BSPN.Services</AssemblyName>
+    <RootNamespace>BSPN.Transformation</RootNamespace>
+    <AssemblyName>BSPN.Transformation</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,14 +37,7 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,32 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NFL\NFLTeamService.cs" />
+    <Compile Include="Adapters\NFLTeamAdapter.cs" />
+    <Compile Include="DTO\NFLTeamDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NASCAR\RacePicks.cs" />
-    <Compile Include="NASCAR\RaceService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSPN.Data\BSPN.Data.csproj">
       <Project>{cf3ac235-dd1c-47bd-8556-cf8269c781dd}</Project>
       <Name>BSPN.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BSPN.IoC\BSPN.IoC.csproj">
-      <Project>{a6b4a186-fcc6-414a-bdc4-724a64232562}</Project>
-      <Name>BSPN.IoC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BSPN.Transformation\BSPN.Transformation.csproj">
-      <Project>{d255d0d2-70db-4598-a2f8-9bcf83d7009f}</Project>
-      <Name>BSPN.Transformation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{8e336553-4072-4af8-916d-c27874eb7ced}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

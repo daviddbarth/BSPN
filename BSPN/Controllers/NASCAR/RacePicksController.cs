@@ -23,14 +23,14 @@ namespace BSPN.Controllers
 
         [AcceptVerbs("GET")]
         [ClaimsAuthorizeAPI("View", "RacePicks")]
-        public JsonResult<RacePicks> Get(int id)
+        public JsonResult<RaceInfo> Get(int id)
         {
             return Json(_raceService.GetRacePicks(GetUserId(), id));
         }
 
         [AcceptVerbs("POST")]
         [ClaimsAuthorizeAPI("Edit", "RacePicks")]
-        public void Post(RacePicks value)
+        public void Post(RaceInfo value)
         {
             try
             {

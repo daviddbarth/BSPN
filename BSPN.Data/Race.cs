@@ -17,6 +17,7 @@ namespace BSPN.Data
         public Race()
         {
             this.RacePicks = new HashSet<RacePick>();
+            this.RaceFinishes = new HashSet<RaceFinish>();
         }
     
         public int RaceId { get; set; }
@@ -27,5 +28,6 @@ namespace BSPN.Data
     
         public virtual ICollection<RacePick> RacePicks { get; set; }
         public virtual Track Track { get; set; }
+        public virtual ICollection<RaceFinish> RaceFinishes { get; set; }
     }
 }

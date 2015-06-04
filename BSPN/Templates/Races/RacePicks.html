@@ -1,13 +1,15 @@
 ﻿<div ng-controller="RacePicksController">
-    <h2>Race Picks</h2>
-    {{racePicks.RaceName}} - {{racePicks.TrackName}}
-    <div>
-        <div ng-repeat="driver in racePicks.Drivers">
+    <h2>Race Picks - {{racePicks.RaceName}} - {{racePicks.TrackName}}</h2>
+    <div class="container">
+        <div ng-repeat="driver in racePicks.Drivers" class="col-md-3">
             <input type="checkbox" ng-model="driver.Selected" > {{driver.CarNumber}} - {{driver.FirstName}} {{driver.LastName}}
             <br />
         </div>
     </div>
-    <button type="submit" ng-click="saveRacePicks(racePicks)">Save</button>
+    <div class="container">
+        <br />
+        <button type="submit" ng-click="saveRacePicks(racePicks)">Save Race Picks</button>
+    </div>
     <br />
     <div>
         {{errorMsg}}

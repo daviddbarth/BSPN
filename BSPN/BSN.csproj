@@ -212,9 +212,10 @@
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\NASCARController.cs" />
-    <Compile Include="Controllers\RacePicksController.cs" />
-    <Compile Include="Controllers\RacesController.cs" />
+    <Compile Include="Controllers\NASCAR\RacePicksController.cs" />
+    <Compile Include="Controllers\NASCAR\RacesController.cs" />
+    <Compile Include="Controllers\NASCAR\RaceFinishController.cs" />
+    <Compile Include="Controllers\NFL\NFLTeamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1100,6 +1101,10 @@
     <ProjectReference Include="..\BSPN.Services\BSPN.Services.csproj">
       <Project>{422a9e42-ee3c-4217-8045-61a9903afe2b}</Project>
       <Name>BSPN.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSPN.Transformation\BSPN.Transformation.csproj">
+      <Project>{d255d0d2-70db-4598-a2f8-9bcf83d7009f}</Project>
+      <Name>BSPN.Transformation</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{8e336553-4072-4af8-916d-c27874eb7ced}</Project>
