@@ -1,38 +1,44 @@
 ﻿using System.Collections.Generic;
 using BSPN.Data;
-using BSPN.Transformation;
-using BSPN.Transformation.Adapters;
 using DataAccess;
+using System.Data.Entity;
 
 namespace BSPN.Services
 {
     public interface INFLTeamService
     {
-        IEnumerable<INFLTeamDTO> GetAllTeams();
-        INFLTeamDTO GetNFLTeam(int teamId);
+        IEnumerable<NFLTeam> GetAllTeams();
+        NFLTeam GetNFLTeam(int teamId);
+        void SaveNFLTeam(NFLTeam team);
     }
 
     public class NFLTeamService : INFLTeamService
     {
         private IRepository<NFLTeam> _teamRepository;
-        private INFLTeamAdapter _nflTeamAdapter;
+        private IUnitOfWork _unitOfWork;
 
-        public NFLTeamService(IRepository<NFLTeam> teamRepository, INFLTeamAdapter nflTeamAdapter)
+        public NFLTeamService(IRepository<NFLTeam> teamRepository, IUnitOfWork unitOfWork)
         {
             _teamRepository = teamRepository;
-            _nflTeamAdapter = nflTeamAdapter;
+            _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<INFLTeamDTO> GetAllTeams()
+        public IEnumerable<NFLTeam> GetAllTeams()
         {
-            return _nflTeamAdapter.GetNFLTeams();
+            return _teamRepository.FindAll();
         }
 
-        public INFLTeamDTO GetNFLTeam(int teamId)
+        public NFLTeam GetNFLTeam(int nflTeamId)
         {
-            var nflTeam = _nflTeamAdapter.GetNFLTeam(teamId);
-
+            var nflTeam = _teamRepository.Find(nflTeamId);
             return nflTeam;
         }
+
+        public void SaveNFLTeam(NFLTeam team)
+        {
+            _teamRepository.Entry(team, team.NFLTeamId == 0 ? EntityState.Added : EntityState.Modified);
+            _unitOfWork.Commit();
+        }
+
     }
 }
