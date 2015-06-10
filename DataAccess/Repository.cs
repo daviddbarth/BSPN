@@ -11,7 +11,7 @@ namespace DataAccess
         void Add(T entity);
         void Attach(T entity);
         T Create();
-        void SetState(T entity, EntityState state);
+        void Entry(T entity, EntityState state);
         T Find(int id);
         IEnumerable<T> FindAll();
         IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate);
@@ -47,7 +47,7 @@ namespace DataAccess
             _dbSet.Attach(entity);
         }
 
-        public virtual void SetState(T entity, EntityState state)
+        public virtual void Entry(T entity, EntityState state)
         {
             _context.Entry(entity).State = state;
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BSPN.Data;
 using DataAccess;
+using System.Data.Entity;
 
 namespace BSPN.Services
 {
@@ -39,24 +40,8 @@ namespace BSPN.Services
 
         public void SaveNFLTeam(NFLTeam team)
         {
-            if (team.NFLTeamId != 0)
-                SaveExistingTeam(team);
-            else
-                SaveNewTeam(team);
-        }
-
-        private void SaveNewTeam(NFLTeam team)
-        {
-            _teamRepository.Add(team);
+            _teamRepository.Entry(team, team.NFLTeamId == 0 ? EntityState.Added : EntityState.Modified);
             _unitOfWork.Commit();
-        }
-
-        private void SaveExistingTeam(NFLTeam team)
-        {
-            _teamRepository.Attach(team);
-            _teamRepository.SetState(team, System.Data.Entity.EntityState.Modified);
-            _unitOfWork.Commit();
-            
         }
 
     }

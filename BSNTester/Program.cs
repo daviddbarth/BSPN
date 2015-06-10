@@ -18,10 +18,11 @@ namespace BSNTester
             var unitOfWork = new UnitOfWork(context);
 
             var nflService = new NFLTeamService(teamRepos, unitOfWork);
-            var team = new NFLTeam() {City = "Arizona", TeamName = "Cardinals"};
+            var team = teamRepos.Find(2);
 
-
-            
+            team.TeamName = "Giants";
+            //var team = new NFLTeam() {City = "St. Louis", TeamName = "Rams"};
+                        
             nflService.SaveNFLTeam(team);
         }
     }
