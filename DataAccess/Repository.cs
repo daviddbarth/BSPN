@@ -29,44 +29,41 @@ namespace DataAccess
 
         public Repository(IDbContext context)
         {
-            this._context = context;
-            this._dbSet = context.Set<T>();
+            _context = context;
+            _dbSet = context.Set<T>();
         }
 
         public virtual void Add(T entity)
         {
-            this._dbSet.Add(entity);
+            _dbSet.Add(entity);
         }
 
         public virtual T Create()
         {
-            T newEntity = Activator.CreateInstance<T>();
-            this._dbSet.Add(newEntity);
+            var newEntity = Activator.CreateInstance<T>();
+            _dbSet.Add(newEntity);
             return newEntity;
         }
 
         public virtual T Find(int id)
         {
-            return this._dbSet.Find(new object[] { id });
+            return _dbSet.Find(new object[] { id });
         }
 
         public virtual IEnumerable<T> FindAll()
         {
-            return this._context.Set<T>();
+            return _context.Set<T>();
         }
 
         public virtual IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate)
         {
-            return this._dbSet.Where<T>(predicate);
+            return _dbSet.Where<T>(predicate);
         }
 
         public virtual T FindOneOrCreate(Expression<Func<T, bool>> predicate)
         {
-            T t = this._dbSet.FirstOrDefault<T>(predicate);
-            if (t == null)
-            {
-                t = this.Create();
-            }
+            var t = _dbSet.FirstOrDefault<T>(predicate) ?? Create();
+
             return t;
         }
 
