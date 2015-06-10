@@ -6,36 +6,60 @@ using System.Threading.Tasks;
 using DataAccess;
 using BSPN.Data;
 using AutoMapper;
+using BSPN.Services;
 
-namespace BSPN.Transformation.Adapters
+namespace BSPN.Transformation
 {
     public interface INFLTeamAdapter 
     {
         IEnumerable<INFLTeamDTO> GetNFLTeams();
         INFLTeamDTO GetNFLTeam(int nflTeamId);
+        INFLTeamDTO GetNFLTeamSchedule(int nflTeamId);
+        void SaveNFLTeam(INFLTeamDTO team);
     }
 
     public class NFLTeamAdapter : INFLTeamAdapter
     {
         private IMappingEngine _mapper;
-        private IRepository<NFLTeam> _teamRepos;
+        private INFLTeamService _nflTeamService;
 
-        public NFLTeamAdapter(IRepository<NFLTeam> teamRepos, IMappingEngine mapper)
+        public NFLTeamAdapter(INFLTeamService nflTEamService, IMappingEngine mapper)
         {
-            _teamRepos = teamRepos;
+            _nflTeamService = nflTEamService;
+
              _mapper = mapper;
-            _mapper.ConfigurationProvider.CreateTypeMap(typeof(NFLTeam), typeof(INFLTeamDTO));
+             _mapper.ConfigurationProvider.CreateTypeMap(typeof(NFLTeam), typeof(INFLTeamDTO));
+             _mapper.ConfigurationProvider.CreateTypeMap(typeof(NFLGame), typeof(INFLGameDTO));
+
+             _mapper.ConfigurationProvider.CreateTypeMap(typeof(INFLTeamDTO), typeof(NFLTeam));
+            
         }
 
         public IEnumerable<INFLTeamDTO> GetNFLTeams()
         {
-            return _teamRepos.FindAll().Select(t => _mapper.Map<INFLTeamDTO>(t));
+            return _nflTeamService.GetAllTeams().Select(t => _mapper.Map<INFLTeamDTO>(t));
         }
 
         public INFLTeamDTO GetNFLTeam(int nflTeamId)
         {
-            var team = _teamRepos.Find(nflTeamId);
-            return _mapper.Map<INFLTeamDTO>(team);
+            var nflTeam = _nflTeamService.GetNFLTeam(nflTeamId);
+            return _mapper.Map<INFLTeamDTO>(nflTeam);
+        }
+
+        public INFLTeamDTO GetNFLTeamSchedule(int nflTeamId)
+        {
+            var nflTeam = _nflTeamService.GetNFLTeam(nflTeamId);
+            var nflTeamDTO = _mapper.Map<INFLTeamDTO>(nflTeam);
+
+            nflTeamDTO.Schedule = nflTeam.NFLGames.Select(game => _mapper.Map<INFLGameDTO>(game));
+            return nflTeamDTO;
+            
+        }
+
+        public void SaveNFLTeam(INFLTeamDTO team)
+        {
+            var nflTeam = _mapper.Map<NFLTeam>(team);
+            _nflTeamService.SaveNFLTeam(nflTeam);
         }
     }
 }

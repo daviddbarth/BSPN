@@ -9,14 +9,12 @@ namespace DataAccess
     public interface IRepository<T> where T : class
     {
         void Add(T entity);
-
+        void Attach(T entity);
         T Create();
-
+        void SetState(T entity, EntityState state);
         T Find(int id);
-
         IEnumerable<T> FindAll();
         IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate);
-
         T FindOneOrCreate(Expression<Func<T, bool>> predicate);
         void Remove(T obj);
     }
@@ -24,13 +22,12 @@ namespace DataAccess
     public class Repository<T> : IRepository<T> where T : class, new()
     {
         private readonly IDbContext _context;
-
         private readonly IDbSet<T> _dbSet;
 
         public Repository(IDbContext context)
         {
-            this._context = context;
-            this._dbSet = context.Set<T>();
+            _context = context;
+            _dbSet = context.Set<T>();
         }
 
         public virtual void Add(T entity)
@@ -41,8 +38,18 @@ namespace DataAccess
         public virtual T Create()
         {
             T newEntity = Activator.CreateInstance<T>();
-            this._dbSet.Add(newEntity);
+            _dbSet.Add(newEntity);
             return newEntity;
+        }
+
+        public virtual void Attach(T entity)
+        {
+            _dbSet.Attach(entity);
+        }
+
+        public virtual void SetState(T entity, EntityState state)
+        {
+            _context.Entry(entity).State = state;
         }
 
         public virtual T Find(int id)
@@ -52,7 +59,7 @@ namespace DataAccess
 
         public virtual IEnumerable<T> FindAll()
         {
-            return this._context.Set<T>();
+            return _context.Set<T>();
         }
 
         public virtual IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate)

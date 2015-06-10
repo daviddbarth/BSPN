@@ -66,10 +66,6 @@
       <Project>{a6b4a186-fcc6-414a-bdc4-724a64232562}</Project>
       <Name>BSPN.IoC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BSPN.Transformation\BSPN.Transformation.csproj">
-      <Project>{d255d0d2-70db-4598-a2f8-9bcf83d7009f}</Project>
-      <Name>BSPN.Transformation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{8e336553-4072-4af8-916d-c27874eb7ced}</Project>
       <Name>DataAccess</Name>

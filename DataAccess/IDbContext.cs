@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace DataAccess
 {
@@ -11,10 +12,8 @@ namespace DataAccess
         }
 
         void Rollback();
-
         int SaveChanges();
-
-        DbSet<T> Set<T>()
-        where T : class;
+        DbSet<T> Set<T>() where T : class;
+        DbEntityEntry Entry(object entity);
     }
 }
