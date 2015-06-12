@@ -1,10 +1,4 @@
-﻿using BSPN.Data;
-using BSPN.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using BSPN.Transformation;
 
@@ -14,7 +8,7 @@ namespace BSPN.Controllers
 {
     public class NFLTeamsController : ApiController
     {
-        private INFLTeamAdapter _nflAdapter;
+        private readonly INFLTeamAdapter _nflAdapter;
 
         public NFLTeamsController(INFLTeamAdapter nflAdapter)
         {
@@ -30,7 +24,7 @@ namespace BSPN.Controllers
         [AcceptVerbs("GET")] 
         public INFLTeamDTO Get(int id)
         {
-            return _nflAdapter.GetNFLTeamSchedule(id);
+            return _nflAdapter.GetNFLTeamWithSchedule(id);
         }
 
         [AcceptVerbs("PUT")]

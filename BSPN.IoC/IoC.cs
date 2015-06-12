@@ -2,6 +2,7 @@
 using Ninject.Extensions.Conventions;
 using System;
 using AutoMapper;
+
 namespace BSPN.IoC
 {
     public static class KernelExtensions
@@ -14,8 +15,9 @@ namespace BSPN.IoC
                 .SelectAllClasses()
                 .BindAllInterfaces()
                 .Configure(config => config.InScope(scopeExpression)));
-
+            
             kernel.Bind<IMappingEngine>().ToMethod(context => Mapper.Engine);
+            kernel.Bind<IConfigurationProvider>().ToMethod(context => Mapper.Engine.ConfigurationProvider);
         }
     }
 }

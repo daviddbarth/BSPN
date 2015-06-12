@@ -68,6 +68,7 @@ namespace BSPN.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.BindAssemblies(context => HttpContext.Current, "BSPN.*.dll", "DataAccess.dll");
+            
         }      
      }
 
