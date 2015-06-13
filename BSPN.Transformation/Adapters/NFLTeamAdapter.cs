@@ -15,10 +15,10 @@ namespace BSPN.Transformation
 
     public class NFLTeamAdapter : INFLTeamAdapter
     {
-        private readonly IBSNMappingEngine _mapper;
+        private readonly IBSNMapper _mapper;
         private readonly INFLTeamService _nflTeamService;
 
-        public NFLTeamAdapter(INFLTeamService nflTEamService, IBSNMappingEngine mapper)
+        public NFLTeamAdapter(INFLTeamService nflTEamService, IBSNMapper mapper)
         {
             _nflTeamService = nflTEamService;
             _mapper = mapper;
@@ -27,8 +27,8 @@ namespace BSPN.Transformation
 
         private void CreateMaps()
         {
-            _mapper.ConfigurationProvider.CreateTypeMap(typeof(NFLGame), typeof(INFLGameDTO));
-            _mapper.ConfigurationProvider.CreateTypeMap(typeof(NFLTeam), typeof(INFLTeamDTO));
+            _mapper.CreateMap<NFLTeam, INFLTeamDTO>();
+            _mapper.CreateMap<NFLGame, INFLGameDTO>();
         }
         
         public IEnumerable<INFLTeamDTO> GetNFLTeams()
@@ -40,7 +40,7 @@ namespace BSPN.Transformation
         {
             var nflTeam = _nflTeamService.GetNFLTeam(nflTeamId);
             _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("NFLGames");
-
+                        
             return _mapper.Map<INFLTeamDTO>(nflTeam);
         }
 

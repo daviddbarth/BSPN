@@ -16,8 +16,8 @@ namespace BSPN.IoC
                 .BindAllInterfaces()
                 .Configure(config => config.InScope(scopeExpression)));
             
-            kernel.Bind<IMappingEngine>().ToMethod(context => Mapper.Engine);
-            kernel.Bind<IConfigurationProvider>().ToMethod(context => Mapper.Engine.ConfigurationProvider);
+            //kernel.Bind<IMappingEngine>().ToMethod(context => Mapper.Engine);
+            //kernel.Bind<IConfigurationProvider>().ToMethod(context => Mapper.Engine.ConfigurationProvider);
         }
     }
 }

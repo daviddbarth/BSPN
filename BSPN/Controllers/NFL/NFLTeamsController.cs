@@ -24,7 +24,7 @@ namespace BSPN.Controllers
         [AcceptVerbs("GET")] 
         public INFLTeamDTO Get(int id)
         {
-            return _nflAdapter.GetNFLTeamWithSchedule(id);
+            return _nflAdapter.GetNFLTeam(id);
         }
 
         [AcceptVerbs("PUT")]
