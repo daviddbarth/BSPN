@@ -1,0 +1,15 @@
+﻿<div ng-controller="NFLTeamListController">
+    <h2>NFL Teams</h2>
+    <div class="container">
+        <div ng-repeat="NFLTeam in NFLTeamList">
+            <h3>{{NFLTeam.City}} {{NFLTeam.TeamName}}</h3>
+            <input type="text" ng-model="NFLTeam.City" value={{NFLTeam.City}} /> <input type="text" ng-model="NFLTeam.TeamName" value={{NFLTeam.TeamName}} />
+            <button type="submit" ng-click="saveNFLTeam(NFLTeam)">Save</button>
+        </div>
+    </div>
+    <br />
+    <div>
+        {{errorMsg}}
+    </div>
+</div>
+

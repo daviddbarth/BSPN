@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using BSPN.Transformation;
+using BSPN.Security;
 
 //https://msdn.microsoft.com/en-us/magazine/ee236638.aspx
 
@@ -16,19 +17,22 @@ namespace BSPN.Controllers
         }
 
         [AcceptVerbs("GET")]
+        [ClaimsAuthorizeAPI("Edit", "NFL")]
         public IEnumerable<INFLTeamDTO> Get()
         {
             return _nflAdapter.GetNFLTeams();
         }
 
-        [AcceptVerbs("GET")] 
+        [AcceptVerbs("GET")]
+        [ClaimsAuthorizeAPI("Edit", "NFL")]
         public INFLTeamDTO Get(int id)
         {
             return _nflAdapter.GetNFLTeam(id);
         }
 
-        [AcceptVerbs("PUT")]
-        public void Put(INFLTeamDTO value)
+        [AcceptVerbs("POST")]
+        [ClaimsAuthorizeAPI("Admin", "NFL")]
+        public void Post(NFLTeamDTO value)
         {
             _nflAdapter.SaveNFLTeam(value);
         }

@@ -28,7 +28,9 @@ namespace BSPN.Transformation
         private void CreateMaps()
         {
             _mapper.CreateMap<NFLTeam, INFLTeamDTO>();
-            _mapper.CreateMap<NFLGame, INFLGameDTO>();
+            _mapper.CreateMap<NFLGame, NFLGameDTO>();
+            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("NFLGames");
+            _mapper.CreateMap<INFLTeamDTO, NFLTeam>();
         }
         
         public IEnumerable<INFLTeamDTO> GetNFLTeams()
@@ -39,8 +41,7 @@ namespace BSPN.Transformation
         public INFLTeamDTO GetNFLTeam(int nflTeamId)
         {
             var nflTeam = _nflTeamService.GetNFLTeam(nflTeamId);
-            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("NFLGames");
-                        
+                                    
             return _mapper.Map<INFLTeamDTO>(nflTeam);
         }
 
@@ -54,8 +55,11 @@ namespace BSPN.Transformation
 
         public void SaveNFLTeam(INFLTeamDTO team)
         {
-            var nflTeam = _mapper.Map<NFLTeam>(team);
-            _nflTeamService.SaveNFLTeam(nflTeam);
+            if (team != null)
+            {
+                var nflTeam = _mapper.Map<NFLTeam>(team);
+                _nflTeamService.SaveNFLTeam(nflTeam);
+            }
         }
     }
 }

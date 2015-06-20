@@ -266,9 +266,11 @@
     <None Include="Properties\PublishProfiles\BSN.pubxml" />
     <Content Include="Scripts\BSPNApp\BSPNApp.js" />
     <Content Include="Scripts\BSPNApp\Controllers\DriversController.js" />
+    <Content Include="Scripts\BSPNApp\Controllers\NFLTeamController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacePicksController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacesController.js" />
     <Content Include="Scripts\BSPNApp\Services\DriverData.js" />
+    <Content Include="Scripts\BSPNApp\Services\NFLService.js" />
     <Content Include="Scripts\BSPNApp\Services\RaceData.js" />
     <Content Include="Scripts\BSPNApp\Services\RacePicksData.js" />
     <Content Include="Scripts\errors.json" />
@@ -282,7 +284,10 @@
     <Content Include="Scripts\Angular\angular-aria.min.js.map" />
     <Content Include="Scripts\Angular\angular-animate.min.js.map" />
     <Content Include="Scripts\Angular\angular.min.js.map" />
-    <None Include="Scripts\JQuery\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\JQuery\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\JQuery\jquery-2.1.4.js" />
+    <Content Include="Scripts\JQuery\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\JQuery\jquery-2.1.4.min.map" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
@@ -1026,8 +1031,6 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <Content Include="Scripts\JQuery\jquery-1.10.2.js" />
-    <Content Include="Scripts\JQuery\jquery-1.10.2.min.js" />
     <None Include="Scripts\JQuery\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\JQuery\jquery.validate.js" />
     <Content Include="Scripts\JQuery\jquery.validate.min.js" />
@@ -1039,6 +1042,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\Drivers\DriverList.html" />
     <Content Include="Templates\Drivers\EditDriver.html" />
+    <Content Include="Templates\NFL\NFLTeam.html" />
     <Content Include="Templates\Races\RacePicks.html" />
     <Content Include="Templates\Races\Races.html" />
     <Content Include="Web.config" />
@@ -1055,7 +1059,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\JQuery\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
