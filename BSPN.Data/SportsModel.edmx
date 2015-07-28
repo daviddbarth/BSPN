@@ -75,9 +75,9 @@
         </EntityType>
         <EntityType Name="NFLGames">
           <Key>
-            <PropertyRef Name="NFLGamesId" />
+            <PropertyRef Name="NFLGameId" />
           </Key>
-          <Property Name="NFLGamesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NFLGameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NFLWeekId" Type="int" />
           <Property Name="GameTime" Type="datetime" />
           <Property Name="HomeTeamId" Type="int" />
@@ -734,9 +734,8 @@
         </Association>
         <EntityType Name="NFLGame">
           <Key>
-            <PropertyRef Name="NFLGamesId" />
+            <PropertyRef Name="NFLGameId" />
           </Key>
-          <Property Name="NFLGamesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NFLWeekId" Type="Int32" />
           <Property Name="GameTime" Type="DateTime" Precision="3" />
           <Property Name="HomeTeamId" Type="Int32" />
@@ -746,6 +745,7 @@
           <NavigationProperty Name="NFLTeam" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
           <NavigationProperty Name="NFLTeam1" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
           <NavigationProperty Name="NFLWeek" Relationship="SportsModel.NFLWeeks_NFLGames_FK" FromRole="NFLGame" ToRole="NFLWeek" />
+          <Property Name="NFLGameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="NFLSeason">
           <Key>
@@ -950,13 +950,13 @@
           <EntitySetMapping Name="NFLGames">
             <EntityTypeMapping TypeName="SportsModel.NFLGame">
               <MappingFragment StoreEntitySet="NFLGames">
+                <ScalarProperty Name="NFLGameId" ColumnName="NFLGameId" />
                 <ScalarProperty Name="VisitingTeamScore" ColumnName="VisitingTeamScore" />
                 <ScalarProperty Name="HomeTeamScore" ColumnName="HomeTeamScore" />
                 <ScalarProperty Name="VisitingTeamId" ColumnName="VisitingTeamId" />
                 <ScalarProperty Name="HomeTeamId" ColumnName="HomeTeamId" />
                 <ScalarProperty Name="GameTime" ColumnName="GameTime" />
                 <ScalarProperty Name="NFLWeekId" ColumnName="NFLWeekId" />
-                <ScalarProperty Name="NFLGamesId" ColumnName="NFLGamesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

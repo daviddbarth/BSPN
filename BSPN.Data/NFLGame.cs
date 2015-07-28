@@ -14,13 +14,13 @@ namespace BSPN.Data
     
     public partial class NFLGame
     {
-        public int NFLGamesId { get; set; }
         public Nullable<int> NFLWeekId { get; set; }
         public Nullable<System.DateTime> GameTime { get; set; }
         public Nullable<int> HomeTeamId { get; set; }
         public Nullable<int> VisitingTeamId { get; set; }
         public Nullable<int> HomeTeamScore { get; set; }
         public Nullable<int> VisitingTeamScore { get; set; }
+        public int NFLGameId { get; set; }
     
         public virtual NFLTeam NFLTeam { get; set; }
         public virtual NFLTeam NFLTeam1 { get; set; }

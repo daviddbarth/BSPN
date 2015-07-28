@@ -38,6 +38,8 @@ namespace BSPN.Services
         {
             _teamRepository.Entry(team, team.NFLTeamId == 0 ? EntityState.Added : EntityState.Modified);
             _unitOfWork.Commit();
+            var id = team.NFLTeamId;
+
         }
 
     }

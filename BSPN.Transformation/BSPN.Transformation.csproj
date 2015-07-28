@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\BSNMapper.cs" />
+    <Compile Include="Adapters\NFLScheduleAdapter.cs" />
     <Compile Include="Adapters\NFLTeamAdapter.cs" />
+    <Compile Include="DTO\NFLScheduleDTO.cs" />
     <Compile Include="DTO\NFLTeamDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
