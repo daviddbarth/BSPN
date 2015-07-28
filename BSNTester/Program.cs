@@ -14,16 +14,13 @@ namespace BSNTester
         static void Main(string[] args)
         {
             var context = new BSPN.Data.SportsEntities();
-            var teamRepos = new Repository<NFLTeam>(context);
+            var seasonRepos = new Repository<NFLSeason>(context);
             var unitOfWork = new UnitOfWork(context);
 
-            var nflService = new NFLTeamService(teamRepos, unitOfWork);
-            var team = teamRepos.Find(2);
+            var nflService = new NFLSeasonService(seasonRepos, unitOfWork);
+            var season = nflService.GetNFLSeason(1);
 
-            team.TeamName = "Giants";
-            //var team = new NFLTeam() {City = "St. Louis", TeamName = "Rams"};
-                        
-            nflService.SaveNFLTeam(team);
+
         }
     }
 }

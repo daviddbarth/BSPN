@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NFL\NFLSeasonService.cs" />
     <Compile Include="NFL\NFLTeamService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NASCAR\RacePicks.cs" />

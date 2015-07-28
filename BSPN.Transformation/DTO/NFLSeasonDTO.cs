@@ -48,29 +48,31 @@ namespace BSPN.Transformation
         public IEnumerable<INFLGameDTO> NFLGames { get; set; }
     }
 
+    public interface INFLScheduleDTO
+    {
+        IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
+    }
+
+    public class NFLScheduleDTO : INFLScheduleDTO
+    {
+        public IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
+    }
+
     public interface INFLSeasonDTO
     {
         int NFLSeasonId { get; set; }
         string SeasonDescription { get; set; }
+        INFLScheduleDTO Schedule { get; set; }
     }
 
     public class NFLSeasonDTO : INFLSeasonDTO
     {
         public int NFLSeasonId { get; set; }
         public string SeasonDescription { get; set; }
+        public INFLScheduleDTO Schedule { get; set; }
     }
 
-    public interface INFLScheduleDTO
-    {
-        INFLSeasonDTO Season { get; set; }
-        IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
-    }
 
-    public class NFLScheduleDTO : INFLScheduleDTO
-    {
-        public INFLSeasonDTO Season { get; set; }
-        public IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
-    }
 
 
 }

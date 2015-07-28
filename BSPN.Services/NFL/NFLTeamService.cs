@@ -14,8 +14,8 @@ namespace BSPN.Services
 
     public class NFLTeamService : INFLTeamService
     {
-        private IRepository<NFLTeam> _teamRepository;
-        private IUnitOfWork _unitOfWork;
+        private readonly IRepository<NFLTeam> _teamRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public NFLTeamService(IRepository<NFLTeam> teamRepository, IUnitOfWork unitOfWork)
         {
@@ -38,7 +38,6 @@ namespace BSPN.Services
         {
             _teamRepository.Entry(team, team.NFLTeamId == 0 ? EntityState.Added : EntityState.Modified);
             _unitOfWork.Commit();
-            var id = team.NFLTeamId;
 
         }
 

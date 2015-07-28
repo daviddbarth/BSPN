@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BSPN.Transformation
@@ -13,10 +12,6 @@ namespace BSPN.Transformation
 
     public class BSNMapper : IBSNMapper
     {
-        public BSNMapper()
-        {
-
-        }
 
         public void CreateMap<TSource, TDest>()
         {
