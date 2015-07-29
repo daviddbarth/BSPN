@@ -1,10 +1,17 @@
 ﻿<div ng-controller="NFLTeamListController">
     <h2>NFL Teams</h2>
     <div class="container">
+        <input type="text" ng-model="newNFLTeam.City" />
+        <input type="text" ng-model="newNFLTeam.TeamName" />
+        <button type="submit" ng-click="addNFLTeam()">Add Team</button>
         <div ng-repeat="NFLTeam in NFLTeamList">
             <h3>{{NFLTeam.City}} {{NFLTeam.TeamName}}</h3>
-            <input type="text" ng-model="NFLTeam.City" value={{NFLTeam.City}} /> <input type="text" ng-model="NFLTeam.TeamName" value={{NFLTeam.TeamName}} />
-            <button type="submit" ng-click="saveNFLTeam(NFLTeam)">Save</button>
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#Team{{NFLTeam.NFLTeamId}}">Edit</button>
+            <div id="Team{{NFLTeam.NFLTeamId}}" class="collapse">
+                <input type="text" ng-model="NFLTeam.City" value={{NFLTeam.City}} />
+                <input type="text" ng-model="NFLTeam.TeamName" value={{NFLTeam.TeamName}} />
+                <button type="submit" ng-click="saveNFLTeam(NFLTeam)">Save</button>
+            </div>
         </div>
     </div>
     <br />
@@ -12,4 +19,3 @@
         {{errorMsg}}
     </div>
 </div>
-

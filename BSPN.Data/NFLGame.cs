@@ -22,8 +22,8 @@ namespace BSPN.Data
         public Nullable<int> VisitingTeamScore { get; set; }
         public int NFLGameId { get; set; }
     
-        public virtual NFLTeam NFLTeam { get; set; }
-        public virtual NFLTeam NFLTeam1 { get; set; }
+        public virtual NFLTeam HomeTeam { get; set; }
+        public virtual NFLTeam VisitingTeam { get; set; }
         public virtual NFLWeek NFLWeek { get; set; }
     }
 }

@@ -13,6 +13,11 @@ bspnApp.controller('NFLTeamListController', ['$scope', 'NFLService',
                 }
             );
         };
+
+        $scope.addNFLTeam = function () {
+            $scope.NFLTeamList.push($scope.newNFLTeam);
+            $scope.saveNFLTeam($scope.newNFLTeam);
+        };
     }
 ]);
 
@@ -21,4 +26,3 @@ bspnApp.controller('NFLTeamController', ['$scope', '$routeParams', 'NFLService',
         $scope.NFLTeam = NFLService.getTeam({ id: 1 });
     }
 ]);
-

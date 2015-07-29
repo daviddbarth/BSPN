@@ -12,9 +12,9 @@ namespace BSPN.Transformation
         int NFLWeekId { get; set; }
         DateTime GameTime { get; set; }
         int HomeTeamId { get; set; }
-        string HomeTeamName { get; set; }
+        INFLTeamDTO HomeTeam { get; set; }
         int VisitingTeamId { get; set; }
-        string VisitingTeamName { get; set; }
+        INFLTeamDTO VisitingTeam { get; set; }
         int HomeTeamScore { get; set; }
         int VisitingTeamScore { get; set; }
     }
@@ -25,9 +25,9 @@ namespace BSPN.Transformation
         public int NFLWeekId { get; set; }
         public DateTime GameTime { get; set; }
         public int HomeTeamId { get; set; }
-        public string HomeTeamName { get; set; }
+        public INFLTeamDTO HomeTeam { get; set; }
         public int VisitingTeamId { get; set; }
-        public string VisitingTeamName { get; set; }
+        public INFLTeamDTO VisitingTeam { get; set; }
         public int HomeTeamScore { get; set; }
         public int VisitingTeamScore { get; set; }
     }
@@ -48,28 +48,18 @@ namespace BSPN.Transformation
         public IEnumerable<INFLGameDTO> NFLGames { get; set; }
     }
 
-    public interface INFLScheduleDTO
-    {
-        IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
-    }
-
-    public class NFLScheduleDTO : INFLScheduleDTO
-    {
-        public IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
-    }
-
     public interface INFLSeasonDTO
     {
         int NFLSeasonId { get; set; }
         string SeasonDescription { get; set; }
-        INFLScheduleDTO Schedule { get; set; }
+        IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
     }
 
     public class NFLSeasonDTO : INFLSeasonDTO
     {
         public int NFLSeasonId { get; set; }
         public string SeasonDescription { get; set; }
-        public INFLScheduleDTO Schedule { get; set; }
+        public IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
     }
 
 

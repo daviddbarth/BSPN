@@ -11,6 +11,7 @@ namespace BSPN.Services
     public interface INFLSeasonService
     {
         NFLSeason GetNFLSeason(int seasonId);
+        IEnumerable<NFLSeason> GetNFLSeasons();
     }
 
     public class NFLSeasonService : INFLSeasonService
@@ -27,6 +28,11 @@ namespace BSPN.Services
         public NFLSeason GetNFLSeason(int seasonId)
         {
             return _nflSeasonRepository.Find(seasonId);
+        }
+
+        public IEnumerable<NFLSeason> GetNFLSeasons()
+        {
+            return _nflSeasonRepository.FindAll();
         }
     }
 }

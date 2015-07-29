@@ -742,8 +742,8 @@
           <Property Name="VisitingTeamId" Type="Int32" />
           <Property Name="HomeTeamScore" Type="Int32" />
           <Property Name="VisitingTeamScore" Type="Int32" />
-          <NavigationProperty Name="NFLTeam" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
-          <NavigationProperty Name="NFLTeam1" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
+          <NavigationProperty Name="HomeTeam" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
+          <NavigationProperty Name="VisitingTeam" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
           <NavigationProperty Name="NFLWeek" Relationship="SportsModel.NFLWeeks_NFLGames_FK" FromRole="NFLGame" ToRole="NFLWeek" />
           <Property Name="NFLGameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
@@ -762,8 +762,8 @@
           <Property Name="NFLTeamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TeamName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="NFLGames" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
-          <NavigationProperty Name="NFLGames1" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
+          <NavigationProperty Name="HomeGames" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
+          <NavigationProperty Name="AwayGames" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
         </EntityType>
         <EntityType Name="NFLWeek">
           <Key>

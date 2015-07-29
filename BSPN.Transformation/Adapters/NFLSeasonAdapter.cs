@@ -11,6 +11,7 @@ namespace BSPN.Transformation
     public interface INFLSeasonAdapter
     {
         INFLSeasonDTO GetNFLSeason(int seasonId);
+        IEnumerable<INFLSeasonDTO> GetNFLSeasonsWithoutSchedule();
     }
 
     public class NFLSeasonAdapter : INFLSeasonAdapter
@@ -29,12 +30,26 @@ namespace BSPN.Transformation
         private void CreateMaps()
         {
             _mapper.CreateMap<NFLSeason, INFLSeasonDTO>();
+            _mapper.CreateMap<NFLWeek, INFLWeekDTO>();
+            _mapper.CreateMap<NFLGame, INFLGameDTO>();
+            _mapper.CreateMap<NFLTeam, INFLTeamDTO>();
         }
 
         public INFLSeasonDTO GetNFLSeason(int seasonId)
         {
+            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("HomeGames");
+            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("AwayGames");
+
             var season = _nflSeasonService.GetNFLSeason(seasonId);
             return _mapper.Map<INFLSeasonDTO>(season);
+        }
+
+        public IEnumerable<INFLSeasonDTO> GetNFLSeasonsWithoutSchedule()
+        {
+            _mapper.ExcludeProperty<NFLSeason, INFLSeasonDTO>("NFLWeeks");
+
+            var seasons = _nflSeasonService.GetNFLSeasons();
+            return seasons.Select(s => _mapper.Map<INFLSeasonDTO>(s));
         }
     }
 }

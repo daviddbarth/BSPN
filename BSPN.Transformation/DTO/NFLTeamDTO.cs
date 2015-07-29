@@ -8,7 +8,8 @@ namespace BSPN.Transformation
         int NFLTeamId { get; set; }
         string City { get; set; }
         string TeamName { get; set; }
-        IEnumerable<INFLGameDTO> NFLGames { get; set; }
+        IEnumerable<INFLGameDTO> HomeGames { get; set; }
+        IEnumerable<INFLGameDTO> AwayGames { get; set; }
     }
 
     public class NFLTeamDTO : INFLTeamDTO
@@ -16,7 +17,8 @@ namespace BSPN.Transformation
         public int NFLTeamId { get; set; }
         public string City { get; set; }
         public string TeamName { get; set; }
-        public IEnumerable<INFLGameDTO> NFLGames { get; set; }
+        public IEnumerable<INFLGameDTO> HomeGames { get; set; }
+        public IEnumerable<INFLGameDTO> AwayGames { get; set; }
     }
 
 }

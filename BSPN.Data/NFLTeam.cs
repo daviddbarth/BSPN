@@ -16,15 +16,15 @@ namespace BSPN.Data
     {
         public NFLTeam()
         {
-            this.NFLGames = new HashSet<NFLGame>();
-            this.NFLGames1 = new HashSet<NFLGame>();
+            this.HomeGames = new HashSet<NFLGame>();
+            this.AwayGames = new HashSet<NFLGame>();
         }
     
         public int NFLTeamId { get; set; }
         public string City { get; set; }
         public string TeamName { get; set; }
     
-        public virtual ICollection<NFLGame> NFLGames { get; set; }
-        public virtual ICollection<NFLGame> NFLGames1 { get; set; }
+        public virtual ICollection<NFLGame> HomeGames { get; set; }
+        public virtual ICollection<NFLGame> AwayGames { get; set; }
     }
 }
