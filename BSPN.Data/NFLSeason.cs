@@ -21,6 +21,7 @@ namespace BSPN.Data
     
         public int NFLSeasonId { get; set; }
         public string SeasonDescription { get; set; }
+        public bool IsCurrentSeason { get; set; }
     
         public virtual ICollection<NFLWeek> NFLWeeks { get; set; }
     }
