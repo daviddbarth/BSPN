@@ -1,0 +1,16 @@
+﻿<div ng-controller="NFLCurrentSeasonController">
+    <h2>Game Picks</h2>
+    <ul id="tabs" class="nav nav-pills">
+        <li ng-repeat="NFLWeek in NFLCurrentSeason.NFLWeeks">
+            <a href="##Week{{NFLWeek.NFLWeekId}}" target="_self" data-toggle="tab">{{NFLWeek.Description}}</a>
+        </li>
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane" id="Week{{NFLWeek.NFLWeekId}}" ng-repeat="NFLWeek in NFLCurrentSeason.NFLWeeks">
+            <div ng-repeat="Game in NFLWeek.NFLGames">
+                {{Game.HomeTeam.City}} {{Game.HomeTeam.TeamName}} vs. {{Game.VisitingTeam.City}} {{Game.VisitingTeam.TeamName}}
+            </div>
+        </div>
+    </div>
+</div>
+
