@@ -17,6 +17,8 @@ namespace BSPN.Transformation
         INFLTeamDTO VisitingTeam { get; set; }
         int HomeTeamScore { get; set; }
         int VisitingTeamScore { get; set; }
+        bool HomeTeamPicked { get; set; }
+        bool VisitingTeamPicked { get; set; }
     }
 
     public class NFLGameDTO : INFLGameDTO
@@ -30,6 +32,8 @@ namespace BSPN.Transformation
         public INFLTeamDTO VisitingTeam { get; set; }
         public int HomeTeamScore { get; set; }
         public int VisitingTeamScore { get; set; }
+        public bool HomeTeamPicked { get; set; }
+        public bool VisitingTeamPicked { get; set; }
     }
 
     public interface INFLWeekDTO
