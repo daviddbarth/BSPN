@@ -42,7 +42,10 @@ namespace BSPN.Transformation
             _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("AwayGames");
 
             var season = _nflSeasonService.GetCurrentNFLSeason();
-            return _mapper.Map<INFLSeasonDTO>(season);
+            var currentSeason = _mapper.Map<INFLSeasonDTO>(season);
+
+            currentSeason.CurrentNFLWeek = new NFLWeekDTO {NFLWeekId = 1, Description = "Week 1"};
+            return currentSeason;
         }
 
         public INFLSeasonDTO GetNFLSeason(int seasonId)

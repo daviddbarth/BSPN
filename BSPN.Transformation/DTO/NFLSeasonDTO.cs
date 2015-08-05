@@ -57,6 +57,7 @@ namespace BSPN.Transformation
         int NFLSeasonId { get; set; }
         string SeasonDescription { get; set; }
         bool IsCurrentSeason { get; set; }
+        INFLWeekDTO CurrentNFLWeek { get; set; }
         IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
     }
 
@@ -65,6 +66,7 @@ namespace BSPN.Transformation
         public int NFLSeasonId { get; set; }
         public string SeasonDescription { get; set; }
         public bool IsCurrentSeason { get; set; }
+        public INFLWeekDTO CurrentNFLWeek { get; set; }
         public IEnumerable<INFLWeekDTO> NFLWeeks { get; set; }
     }
 
