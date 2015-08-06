@@ -5,7 +5,7 @@
         <select id="WeekList" ng-model="NFLCurrentSeason.CurrentWeek" ng-options="NFLWeek.Description for NFLWeek in NFLCurrentSeason.NFLWeeks track by NFLWeek.NFLWeekId"></select>
     </div>
     <p></p>
-    <div id="Week{{NFLWeek.NFLWeekId}}" ng-repeat="NFLWeek in NFLCurrentSeason.NFLWeeks" ng-show="NFLCurrentSeason.CurrentWeek.NFLWeekId == NFLWeek.NFLWeekId">
+    <div ng-repeat="NFLWeek in NFLCurrentSeason.NFLWeeks" ng-show="NFLCurrentSeason.CurrentWeek.NFLWeekId == NFLWeek.NFLWeekId">
         <div class="row" ng-repeat="Game in NFLWeek.NFLGames">
             <div>
                 <div class="col-lg-3">
@@ -18,7 +18,7 @@
                     <input type="checkbox" ng-model="Game.VisitingTeamPicked"> {{Game.VisitingTeam.City}} {{Game.VisitingTeam.TeamName}}
                 </div>
                 <div class="col-lg-3">
-                    {{Game.GameTime | date: 'MM/dd/yyyy h:mma'}}
+                    {{Game.GameTime | date:'EEEE h:mma'}}
                 </div>
                 <hr style="width: 100%; height: 1px; background-color: lightgrey" />
             </div>
