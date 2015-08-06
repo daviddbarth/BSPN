@@ -2,10 +2,10 @@
     <h2>Game Picks {{NFLCurrentSeason.SeasonDescription}}</h2>
     <div>
         Select Week:
-        <select id="WeekList" ng-="ShowDiv({{NFLCurrentSeason.CurrentNFLWeek.NFLWeekId}})" onchange="ShowDiv(this.value);" ng-model="NFLCurrentSeason.CurrentNFLWeek" ng-options="NFLWeek.Description for NFLWeek in NFLCurrentSeason.NFLWeeks track by NFLWeek.NFLWeekId"></select>
+        <select id="WeekList" ng-model="NFLCurrentSeason.CurrentWeek" ng-options="NFLWeek.Description for NFLWeek in NFLCurrentSeason.NFLWeeks track by NFLWeek.NFLWeekId"></select>
     </div>
     <p></p>
-    <div id="Week{{NFLWeek.NFLWeekId}}" ng-repeat="NFLWeek in NFLCurrentSeason.NFLWeeks" ng- style="display:none">
+    <div id="Week{{NFLWeek.NFLWeekId}}" ng-repeat="NFLWeek in NFLCurrentSeason.NFLWeeks" ng-show="NFLCurrentSeason.CurrentWeek.NFLWeekId == NFLWeek.NFLWeekId">
         <div class="row" ng-repeat="Game in NFLWeek.NFLGames">
             <div>
                 <div class="col-lg-3">
@@ -26,15 +26,5 @@
     </div>
  </div>
 
-<script type="text/javascript">
-    //$(document).ready(function () {
-    //    alert("Hello");
-    //})
 
 
-    function ShowDiv(divName) {
-        alert(divName);
-        $("div[id *= 'Week']").hide();
-        $("div[id = 'Week" + divName + "']").show();
-    }
-</script>

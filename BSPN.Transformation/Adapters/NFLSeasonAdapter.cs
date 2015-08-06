@@ -43,8 +43,8 @@ namespace BSPN.Transformation
 
             var season = _nflSeasonService.GetCurrentNFLSeason();
             var currentSeason = _mapper.Map<INFLSeasonDTO>(season);
+            currentSeason.CurrentWeek = _mapper.Map<INFLWeekDTO>(_nflSeasonService.GetNFLWeek(season.CurrentWeekId));
 
-            currentSeason.CurrentNFLWeek = new NFLWeekDTO {NFLWeekId = 4, Description = "Week 4"};
             return currentSeason;
         }
 
