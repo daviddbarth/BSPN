@@ -25,7 +25,7 @@ namespace BSPN.Controllers
         [ClaimsAuthorizeAPI("View", "RacePicks")]
         public JsonResult<RaceInfo> Get(int id)
         {
-            return Json(_raceService.GetRacePicks(GetUserId(), id));
+            return Json(_raceService.GetRacePicks(SecurityHelpers.GetUserId(), id));
         }
 
         [AcceptVerbs("POST")]
@@ -34,7 +34,7 @@ namespace BSPN.Controllers
         {
             try
             {
-                _raceService.SaveRacePicks(GetUserId(), value);
+                _raceService.SaveRacePicks(SecurityHelpers.GetUserId(), value);
             }
             catch(Exception ex)
             {
@@ -48,12 +48,5 @@ namespace BSPN.Controllers
             }
         }
 
-        private string GetUserId()
-        {
-            var claims = ((ClaimsPrincipal)HttpContext.Current.User).Claims;
-            var userId = claims.First(c => c.Type.Contains("nameidentifier")).Value;
-
-            return userId;
-        }
     }
 }     

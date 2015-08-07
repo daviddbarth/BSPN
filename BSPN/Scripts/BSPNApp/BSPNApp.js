@@ -26,4 +26,8 @@ var bspnApp = angular.module('BSPNApp', ['ngRoute', 'ngResource'])
             {
                 templateUrl: '/Templates/NFL/NFLSeasonPicks.html'
             })
+        .when('/NFL/NFLGamePicks',
+            {
+                templateUrl: '/Templates/NFL/NFLGamePicks.html'
+            })
     }]);

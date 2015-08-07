@@ -16,6 +16,7 @@ namespace DataAccess
         IEnumerable<T> FindAll();
         IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate);
         T FindOneOrCreate(Expression<Func<T, bool>> predicate);
+        T FindOne(Expression<Func<T, bool>> predicate);
         void Remove(T obj);
     }
 
@@ -74,6 +75,11 @@ namespace DataAccess
             return t;
         }
 
+        public virtual T FindOne(Expression<Func<T, bool>> predicate)
+        {
+            return _dbSet.FirstOrDefault<T>(predicate);
+        }
+        
         public virtual void Remove(T obj)
         {
             _context.Set<T>().Remove(obj);

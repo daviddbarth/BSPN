@@ -1,20 +1,27 @@
-﻿'use strict';
+﻿// ReSharper disable All
+'use strict';
 
 bspnApp.controller('NFLCurrentSeasonController', ['$scope', 'NFLCurrentSeasonService',
     function NFLCurrentSeasonController($scope, NFLCurrentSeasonService) {
         $scope.NFLCurrentSeason = NFLCurrentSeasonService.get();
-
-        $scope.SaveGamePicks = function (NFLCurrentSeason) {
-
-            NFLCurrentSeasonService.save(NFLCurrentSeason);
-
-        };
     }
 ]);
 
-bspnApp.controller('NFLGamePicksController', ['$scope', 'NFLService',
-    function NFLGamePicksController($scope, NFLService) {
+bspnApp.controller('NFLGamePicksController', ['$scope', 'NFLGamePicksService',
+    function NFLGamePicksController($scope, NFLGamePicksService) {
+        $scope.NFLGamePicks = NFLGamePicksService.get();
 
-        $scope.NFLGamePicks = 
+        $scope.SaveGamePicks = function (NFLWeek) {
+
+            NFLGamePicksService.save(NFLWeek, 
+                function() {
+                    $scope.SaveResultMessage = "Game Picks Saved Succesfully.";
+                },
+                function (error) {
+                    $scope.SaveResultMessage = error.data;
+                }
+            );
+
+        };
     }
 ]);

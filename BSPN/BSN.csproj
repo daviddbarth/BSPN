@@ -222,6 +222,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Security\SecurityHelpers.cs" />
     <Compile Include="Templates\Models\AccountViewModels.cs" />
     <Compile Include="Templates\Models\IdentityModels.cs" />
     <Compile Include="Templates\Models\ManageViewModels.cs" />

@@ -16,6 +16,7 @@ namespace BSPN.Transformation
         public int VisitingTeamScore { get; set; }
         public bool HomeTeamPicked { get; set; }
         public bool VisitingTeamPicked { get; set; }
+        public bool PicksAllowed { get; set; }
     }
 
     public class NFLWeekDTO 
