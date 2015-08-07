@@ -29,13 +29,15 @@
       </Diagram>
       <Diagram DiagramId="b839b0922faf4721bca7dcaca37eee93" Name="NFL" >
         <EntityTypeShape EntityType="SportsModel.NFLGame" Width="1.5" PointX="4.625" PointY="0.5" />
-        <EntityTypeShape EntityType="SportsModel.NFLSeason" Width="1.5" PointX="4.625" PointY="3.875" />
+        <EntityTypeShape EntityType="SportsModel.NFLSeason" Width="1.5" PointX="4.625" PointY="4.25" />
         <EntityTypeShape EntityType="SportsModel.NFLTeam" Width="1.5" PointX="1.75" PointY="0.5" />
         <EntityTypeShape EntityType="SportsModel.NFLWeek" Width="1.5" PointX="1.75" PointY="3.125" />
         <AssociationConnector Association="SportsModel.NFLHomeTeams_NFLGames_FK" />
         <AssociationConnector Association="SportsModel.NFLVisitingTeams_NFLGames_FK" />
         <AssociationConnector Association="SportsModel.NFLWeeks_NFLGames_FK" />
         <AssociationConnector Association="SportsModel.NFLSeasons_NFLWeeks_FK" />
+        <EntityTypeShape EntityType="SportsModel.NFLGamePick" Width="1.5" PointX="6.875" PointY="1.125" />
+        <AssociationConnector Association="SportsModel.NFLGamePicksNFLGamesFK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

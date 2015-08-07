@@ -20,6 +20,7 @@ namespace BSPN.Data
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.RacePicks = new HashSet<RacePick>();
+            this.NFLGamePicks = new HashSet<NFLGamePick>();
         }
     
         public string Id { get; set; }
@@ -39,5 +40,6 @@ namespace BSPN.Data
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         public virtual ICollection<RacePick> RacePicks { get; set; }
+        public virtual ICollection<NFLGamePick> NFLGamePicks { get; set; }
     }
 }

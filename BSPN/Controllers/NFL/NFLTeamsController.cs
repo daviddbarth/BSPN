@@ -18,14 +18,14 @@ namespace BSPN.Controllers
 
         [AcceptVerbs("GET")]
         [ClaimsAuthorizeAPI("Edit", "NFL")]
-        public IEnumerable<INFLTeamDTO> Get()
+        public IEnumerable<NFLTeamDTO> Get()
         {
             return _nflAdapter.GetNFLTeams();
         }
 
         [AcceptVerbs("GET")]
         [ClaimsAuthorizeAPI("Edit", "NFL")]
-        public INFLTeamDTO Get(int id)
+        public NFLTeamDTO Get(int id)
         {
             return _nflAdapter.GetNFLTeam(id);
         }

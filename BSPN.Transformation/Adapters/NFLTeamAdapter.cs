@@ -7,10 +7,10 @@ namespace BSPN.Transformation
 {
     public interface INFLTeamAdapter 
     {
-        IEnumerable<INFLTeamDTO> GetNFLTeams();
-        INFLTeamDTO GetNFLTeam(int nflTeamId);
-        INFLTeamDTO GetNFLTeamWithSchedule(int nflTeamId);
-        void SaveNFLTeam(INFLTeamDTO team);
+        IEnumerable<NFLTeamDTO> GetNFLTeams();
+        NFLTeamDTO GetNFLTeam(int nflTeamId);
+        NFLTeamDTO GetNFLTeamWithSchedule(int nflTeamId);
+        void SaveNFLTeam(NFLTeamDTO team);
     }
 
     public class NFLTeamAdapter : INFLTeamAdapter
@@ -27,33 +27,33 @@ namespace BSPN.Transformation
 
         private void CreateMaps()
         {
-            _mapper.CreateMap<NFLTeam, INFLTeamDTO>();
+            _mapper.CreateMap<NFLTeam, NFLTeamDTO>();
             _mapper.CreateMap<NFLGame, NFLGameDTO>();
-            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("NFLGames");
-            _mapper.CreateMap<INFLTeamDTO, NFLTeam>();
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("NFLGames");
+            _mapper.CreateMap<NFLTeamDTO, NFLTeam>();
         }
         
-        public IEnumerable<INFLTeamDTO> GetNFLTeams()
+        public IEnumerable<NFLTeamDTO> GetNFLTeams()
         {
-            return _nflTeamService.GetAllTeams().Select(t => _mapper.Map<INFLTeamDTO>(t));
+            return _nflTeamService.GetAllTeams().Select(t => _mapper.Map<NFLTeamDTO>(t));
         }
 
-        public INFLTeamDTO GetNFLTeam(int nflTeamId)
+        public NFLTeamDTO GetNFLTeam(int nflTeamId)
         {
             var nflTeam = _nflTeamService.GetNFLTeam(nflTeamId);
                                     
-            return _mapper.Map<INFLTeamDTO>(nflTeam);
+            return _mapper.Map<NFLTeamDTO>(nflTeam);
         }
 
-        public INFLTeamDTO GetNFLTeamWithSchedule(int nflTeamId)
+        public NFLTeamDTO GetNFLTeamWithSchedule(int nflTeamId)
         {
             var nflTeam = _nflTeamService.GetNFLTeam(nflTeamId);
-            var nflTeamDTO = _mapper.Map<INFLTeamDTO>(nflTeam);
+            var nflTeamDTO = _mapper.Map<NFLTeamDTO>(nflTeam);
             
             return nflTeamDTO;
         }
 
-        public void SaveNFLTeam(INFLTeamDTO team)
+        public void SaveNFLTeam(NFLTeamDTO team)
         {
             if (team != null)
             {

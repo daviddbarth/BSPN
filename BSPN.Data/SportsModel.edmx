@@ -73,6 +73,15 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="20" />
           <Property Name="CarNumber" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="NFLGamePicks">
+          <Key>
+            <PropertyRef Name="NFLGamePicksId" />
+          </Key>
+          <Property Name="NFLGamePicksId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="NFLTeamId" Type="int" />
+          <Property Name="NFLGameId" Type="int" />
+        </EntityType>
         <EntityType Name="NFLGames">
           <Key>
             <PropertyRef Name="NFLGameId" />
@@ -84,6 +93,7 @@
           <Property Name="VisitingTeamId" Type="int" />
           <Property Name="HomeTeamScore" Type="int" />
           <Property Name="VisitingTeamScore" Type="int" />
+          <Property Name="WinningTeamId" Type="int" />
         </EntityType>
         <EntityType Name="NFLSeasons">
           <Key>
@@ -218,6 +228,30 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLGamePicksASPNetUsersFK">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="NFLGamePicks" Type="Self.NFLGamePicks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NFLGamePicks">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLGamePicksNFLGamesFK">
+          <End Role="NFLGames" Type="Self.NFLGames" Multiplicity="0..1" />
+          <End Role="NFLGamePicks" Type="Self.NFLGamePicks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLGames">
+              <PropertyRef Name="NFLGameId" />
+            </Principal>
+            <Dependent Role="NFLGamePicks">
+              <PropertyRef Name="NFLGameId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -361,6 +395,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Claims" EntityType="Self.Claims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NFLGamePicks" EntityType="Self.NFLGamePicks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NFLGames" EntityType="Self.NFLGames" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NFLSeasons" EntityType="Self.NFLSeasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NFLTeams" EntityType="Self.NFLTeams" Schema="dbo" store:Type="Tables" />
@@ -389,6 +424,14 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="NFLGamePicksASPNetUsersFK" Association="Self.NFLGamePicksASPNetUsersFK">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="NFLGamePicks" EntitySet="NFLGamePicks" />
+          </AssociationSet>
+          <AssociationSet Name="NFLGamePicksNFLGamesFK" Association="Self.NFLGamePicksNFLGamesFK">
+            <End Role="NFLGames" EntitySet="NFLGames" />
+            <End Role="NFLGamePicks" EntitySet="NFLGamePicks" />
           </AssociationSet>
           <AssociationSet Name="NFLHomeTeams_NFLGames_FK" Association="Self.NFLHomeTeams_NFLGames_FK">
             <End Role="NFLTeams" EntitySet="NFLTeams" />
@@ -489,6 +532,7 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_AspNetUsers_FK" FromRole="AspNetUser" ToRole="RacePick" />
+          <NavigationProperty Name="NFLGamePicks" Relationship="SportsModel.NFLGamePicksASPNetUsersFK" FromRole="AspNetUser" ToRole="NFLGamePick" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -592,6 +636,15 @@
           <AssociationSet Name="NFLSeasons_NFLWeeks_FK" Association="SportsModel.NFLSeasons_NFLWeeks_FK">
             <End Role="NFLSeason" EntitySet="NFLSeasons" />
             <End Role="NFLWeek" EntitySet="NFLWeeks" />
+          </AssociationSet>
+          <EntitySet Name="NFLGamePicks" EntityType="SportsModel.NFLGamePick" />
+          <AssociationSet Name="NFLGamePicksASPNetUsersFK" Association="SportsModel.NFLGamePicksASPNetUsersFK">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="NFLGamePick" EntitySet="NFLGamePicks" />
+          </AssociationSet>
+          <AssociationSet Name="NFLGamePicksNFLGamesFK" Association="SportsModel.NFLGamePicksNFLGamesFK">
+            <End Role="NFLGame" EntitySet="NFLGames" />
+            <End Role="NFLGamePick" EntitySet="NFLGamePicks" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Driver">
@@ -748,6 +801,8 @@
           <NavigationProperty Name="VisitingTeam" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLGame" ToRole="NFLTeam" />
           <NavigationProperty Name="NFLWeek" Relationship="SportsModel.NFLWeeks_NFLGames_FK" FromRole="NFLGame" ToRole="NFLWeek" />
           <Property Name="NFLGameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WinningTeamId" Type="Int32" />
+          <NavigationProperty Name="NFLGamePicks" Relationship="SportsModel.NFLGamePicksNFLGamesFK" FromRole="NFLGame" ToRole="NFLGamePick" />
         </EntityType>
         <EntityType Name="NFLSeason">
           <Key>
@@ -824,6 +879,41 @@
             </Principal>
             <Dependent Role="NFLWeek">
               <PropertyRef Name="NFLSeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NFLGamePick">
+          <Key>
+            <PropertyRef Name="NFLGamePicksId" />
+          </Key>
+          <Property Name="NFLGamePicksId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="NFLTeamId" Type="Int32" />
+          <Property Name="NFLGameId" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="SportsModel.NFLGamePicksASPNetUsersFK" FromRole="NFLGamePick" ToRole="AspNetUser" />
+          <NavigationProperty Name="NFLGame" Relationship="SportsModel.NFLGamePicksNFLGamesFK" FromRole="NFLGamePick" ToRole="NFLGame" />
+        </EntityType>
+        <Association Name="NFLGamePicksASPNetUsersFK">
+          <End Type="SportsModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="SportsModel.NFLGamePick" Role="NFLGamePick" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NFLGamePick">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NFLGamePicksNFLGamesFK">
+          <End Type="SportsModel.NFLGame" Role="NFLGame" Multiplicity="0..1" />
+          <End Type="SportsModel.NFLGamePick" Role="NFLGamePick" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NFLGame">
+              <PropertyRef Name="NFLGameId" />
+            </Principal>
+            <Dependent Role="NFLGamePick">
+              <PropertyRef Name="NFLGameId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -954,6 +1044,7 @@
           <EntitySetMapping Name="NFLGames">
             <EntityTypeMapping TypeName="SportsModel.NFLGame">
               <MappingFragment StoreEntitySet="NFLGames">
+                <ScalarProperty Name="WinningTeamId" ColumnName="WinningTeamId" />
                 <ScalarProperty Name="NFLGameId" ColumnName="NFLGameId" />
                 <ScalarProperty Name="VisitingTeamScore" ColumnName="VisitingTeamScore" />
                 <ScalarProperty Name="HomeTeamScore" ColumnName="HomeTeamScore" />
@@ -989,6 +1080,16 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="NFLSeasonId" ColumnName="NFLSeasonId" />
                 <ScalarProperty Name="NFLWeekId" ColumnName="NFLWeekId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NFLGamePicks">
+            <EntityTypeMapping TypeName="SportsModel.NFLGamePick">
+              <MappingFragment StoreEntitySet="NFLGamePicks">
+                <ScalarProperty Name="NFLGameId" ColumnName="NFLGameId" />
+                <ScalarProperty Name="NFLTeamId" ColumnName="NFLTeamId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NFLGamePicksId" ColumnName="NFLGamePicksId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -39,5 +39,6 @@ namespace BSPN.Data
         public virtual DbSet<NFLSeason> NFLSeasons { get; set; }
         public virtual DbSet<NFLTeam> NFLTeams { get; set; }
         public virtual DbSet<NFLWeek> NFLWeeks { get; set; }
+        public virtual DbSet<NFLGamePick> NFLGamePicks { get; set; }
     }
 }

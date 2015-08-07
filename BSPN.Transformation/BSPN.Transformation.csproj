@@ -47,10 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\BSNMapper.cs" />
+    <Compile Include="Adapters\NFLGamePicksAdapter.cs" />
     <Compile Include="Adapters\NFLSeasonAdapter.cs" />
     <Compile Include="Adapters\NFLTeamAdapter.cs" />
     <Compile Include="DTO\NFLSeasonDTO.cs" />
-    <Compile Include="DTO\NFLTeamDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

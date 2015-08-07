@@ -17,12 +17,12 @@ namespace BSPN.Controllers
             _seasonAdapter = seasonAdapter;
         }
 
-        public IEnumerable<INFLSeasonDTO> Get()
+        public IEnumerable<NFLSeasonDTO> Get()
         {
             return _seasonAdapter.GetNFLSeasonsWithoutSchedule();
         }
 
-        public INFLSeasonDTO Get(int id)
+        public NFLSeasonDTO Get(int id)
         {
             return _seasonAdapter.GetNFLSeason(id);
         }

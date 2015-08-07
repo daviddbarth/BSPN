@@ -7,9 +7,9 @@ namespace BSPN.Transformation
 {
     public interface INFLSeasonAdapter
     {
-        INFLSeasonDTO GetCurrentNFLSeason();
-        INFLSeasonDTO GetNFLSeason(int seasonId);
-        IEnumerable<INFLSeasonDTO> GetNFLSeasonsWithoutSchedule();
+        NFLSeasonDTO GetCurrentNFLSeason();
+        NFLSeasonDTO GetNFLSeason(int seasonId);
+        IEnumerable<NFLSeasonDTO> GetNFLSeasonsWithoutSchedule();
     }
 
     public class NFLSeasonAdapter : INFLSeasonAdapter
@@ -27,39 +27,39 @@ namespace BSPN.Transformation
 
         private void CreateMaps()
         {
-            _mapper.CreateMap<NFLSeason, INFLSeasonDTO>();
-            _mapper.CreateMap<NFLWeek, INFLWeekDTO>();
-            _mapper.CreateMap<NFLGame, INFLGameDTO>();
-            _mapper.CreateMap<NFLTeam, INFLTeamDTO>();
+            _mapper.CreateMap<NFLSeason, NFLSeasonDTO>();
+            _mapper.CreateMap<NFLWeek, NFLWeekDTO>();
+            _mapper.CreateMap<NFLGame, NFLGameDTO>();
+            _mapper.CreateMap<NFLTeam, NFLTeamDTO>();
         }
 
-        public INFLSeasonDTO GetCurrentNFLSeason()
+        public NFLSeasonDTO GetCurrentNFLSeason()
         {
-            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("HomeGames");
-            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("AwayGames");
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("HomeGames");
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("AwayGames");
 
             var season = _nflSeasonService.GetCurrentNFLSeason();
-            var currentSeason = _mapper.Map<INFLSeasonDTO>(season);
-            currentSeason.CurrentWeek = _mapper.Map<INFLWeekDTO>(_nflSeasonService.GetNFLWeek(season.CurrentWeekId));
+            var currentSeason = _mapper.Map<NFLSeasonDTO>(season);
+            currentSeason.CurrentWeek = _mapper.Map<NFLWeekDTO>(_nflSeasonService.GetNFLWeek(season.CurrentWeekId));
 
             return currentSeason;
         }
 
-        public INFLSeasonDTO GetNFLSeason(int seasonId)
+        public NFLSeasonDTO GetNFLSeason(int seasonId)
         {
-            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("HomeGames");
-            _mapper.ExcludeProperty<NFLTeam, INFLTeamDTO>("AwayGames");
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("HomeGames");
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("AwayGames");
 
             var season = _nflSeasonService.GetNFLSeason(seasonId);
-            return _mapper.Map<INFLSeasonDTO>(season);
+            return _mapper.Map<NFLSeasonDTO>(season);
         }
 
-        public IEnumerable<INFLSeasonDTO> GetNFLSeasonsWithoutSchedule()
+        public IEnumerable<NFLSeasonDTO> GetNFLSeasonsWithoutSchedule()
         {
-            _mapper.ExcludeProperty<NFLSeason, INFLSeasonDTO>("NFLWeeks");
+            _mapper.ExcludeProperty<NFLSeason, NFLSeasonDTO>("NFLWeeks");
 
             var seasons = _nflSeasonService.GetNFLSeasons();
-            return seasons.Select(s => _mapper.Map<INFLSeasonDTO>(s));
+            return seasons.Select(s => _mapper.Map<NFLSeasonDTO>(s));
         }
     }
 }

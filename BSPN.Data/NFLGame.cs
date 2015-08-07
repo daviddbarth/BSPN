@@ -14,6 +14,11 @@ namespace BSPN.Data
     
     public partial class NFLGame
     {
+        public NFLGame()
+        {
+            this.NFLGamePicks = new HashSet<NFLGamePick>();
+        }
+    
         public Nullable<int> NFLWeekId { get; set; }
         public Nullable<System.DateTime> GameTime { get; set; }
         public Nullable<int> HomeTeamId { get; set; }
@@ -21,9 +26,11 @@ namespace BSPN.Data
         public Nullable<int> HomeTeamScore { get; set; }
         public Nullable<int> VisitingTeamScore { get; set; }
         public int NFLGameId { get; set; }
+        public Nullable<int> WinningTeamId { get; set; }
     
         public virtual NFLTeam HomeTeam { get; set; }
         public virtual NFLTeam VisitingTeam { get; set; }
         public virtual NFLWeek NFLWeek { get; set; }
+        public virtual ICollection<NFLGamePick> NFLGamePicks { get; set; }
     }
 }

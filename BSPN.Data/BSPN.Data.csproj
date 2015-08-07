@@ -97,6 +97,9 @@
     <Compile Include="NFLGame.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NFLGamePick.cs">
+      <DependentUpon>SportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NFLSeason.cs">
       <DependentUpon>SportsModel.tt</DependentUpon>
     </Compile>

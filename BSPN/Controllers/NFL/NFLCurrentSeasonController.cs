@@ -17,9 +17,22 @@ namespace BSPN.Controllers.NFL
             _seasonAdapter = seasonAdapter;
         }
 
-        public INFLSeasonDTO Get()
+        public NFLSeasonDTO Get()
         {
-            return _seasonAdapter.GetCurrentNFLSeason();
+            try
+            {
+                return _seasonAdapter.GetCurrentNFLSeason();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
+        }
+
+        public void Post(NFLSeasonDTO value)
+        {
+            var x = value;
         }
     }
 }
