@@ -14,13 +14,53 @@ namespace BSNTester
         static void Main(string[] args)
         {
             var context = new BSPN.Data.SportsEntities();
-            var seasonRepos = new Repository<NFLSeason>(context);
-            var unitOfWork = new UnitOfWork(context);
+            var repos = new Repository<NFLGame>(context);
 
-            var nflService = new NFLSeasonService(seasonRepos, unitOfWork);
-            var season = nflService.GetNFLSeason(1);
+            var gamePicks = context.NFLGamePicks;
+            var games = context.NFLGames;
 
+            IQueryable<NFLGamePick> query =
+                from NflGamePicks in gamePicks
+                join NflGames in games on NflGamePicks.NFLGameId equals NflGames.NFLGameId
+                where NflGames.NFLWeekId == 1
+                select NflGamePicks;
+
+            foreach (var pick in query)
+            {
+                Console.WriteLine("GameId: {0} TeamId: {1}", pick.NFLGameId, pick.NFLTeamId);
+            }
+
+            var gameP = context.NFLGamePicks.Include("NFLGame").Where(g => g.NFLTeamId == 1);
+
+            
+            
+
+            Console.ReadLine();
 
         }
     }
 }
+
+//using (AdventureWorksEntities context = new AdventureWorksEntities())
+//{
+//    ObjectSet<SalesOrderHeader> orders = context.SalesOrderHeaders;
+//    ObjectSet<SalesOrderDetail> details = context.SalesOrderDetails;
+
+//    var query =
+//        from order in orders
+//        join detail in details
+//        on order.SalesOrderID
+//        equals detail.SalesOrderID into orderGroup
+//        select new
+//        {
+//            CustomerID = order.SalesOrderID,
+//            OrderCount = orderGroup.Count()
+//        };
+
+//    foreach (var order in query)
+//    {
+//        Console.WriteLine("CustomerID: {0}  Orders Count: {1}",
+//            order.CustomerID,
+//            order.OrderCount);
+//    }
+//}

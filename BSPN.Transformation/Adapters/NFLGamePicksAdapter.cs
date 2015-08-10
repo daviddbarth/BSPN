@@ -7,7 +7,7 @@ namespace BSPN.Transformation.Adapters
 {
     public interface INFLGamePicksAdapter
     {
-        NFLWeekDTO GetCurrentWeekPicks();
+        NFLWeekDTO GetCurrentWeekPicks(string userId);
         void SaveCurrentWeeksPicks(NFLWeekDTO currentWeek, string userId);
     }
 
@@ -32,16 +32,25 @@ namespace BSPN.Transformation.Adapters
 
         }
 
-        public NFLWeekDTO GetCurrentWeekPicks()
+        public NFLWeekDTO GetCurrentWeekPicks(string userId)
         {
             var currentCentralTime = TimeHelpers.GetCurrentCentralTime();
 
             var currentSeason = _nflSeasonService.GetCurrentNFLSeason();
             var currentWeek = _nflSeasonService.GetNFLWeek(currentSeason.CurrentWeekId);
+            var currentPicks = _nflSeasonService.GetNFLPicks(currentSeason.CurrentWeekId, userId);
             var nflWeek = _mapper.Map<NFLWeekDTO>(currentWeek);
 
             nflWeek.NFLGames.ToList().ForEach(g => g.PicksAllowed = g.GameTime > currentCentralTime);
             
+            foreach(var pick in currentPicks)
+            {
+                var game = nflWeek.NFLGames.First(g => g.NFLGameId == pick.NFLGameId);
+
+                game.HomeTeamPicked = game.HomeTeamId == pick.NFLTeamId;
+                game.VisitingTeamPicked = game.VisitingTeamId == pick.NFLTeamId;
+            }
+
             return nflWeek;
         }
 
@@ -49,7 +58,7 @@ namespace BSPN.Transformation.Adapters
         {
             var gamePicksList = new List<NFLGamePick>();
             currentWeek.NFLGames.ToList().ForEach(g => { if(g.HomeTeamPicked || g.VisitingTeamPicked) gamePicksList.Add(CreateGamePick(g, userId)); });
-            _nflSeasonService.SaveNFLWeekPicks(gamePicksList);
+            _nflSeasonService.SaveNFLPicks(gamePicksList);
 
         }
 

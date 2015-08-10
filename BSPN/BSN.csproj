@@ -271,6 +271,7 @@
     <Content Include="Scripts\BSPNApp\BSPNApp.js" />
     <Content Include="Scripts\BSPNApp\Controllers\DriversController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\NFLControllers.js" />
+    <Content Include="Scripts\BSPNApp\Controllers\NFLGamePicksController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\NFLTeamController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacePicksController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacesController.js" />

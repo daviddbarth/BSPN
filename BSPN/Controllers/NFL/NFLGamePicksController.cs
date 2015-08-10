@@ -19,7 +19,7 @@ namespace BSPN.Controllers.NFL
 
         public NFLWeekDTO Get()
         {
-            return _gamePicksAdapter.GetCurrentWeekPicks();
+            return _gamePicksAdapter.GetCurrentWeekPicks(SecurityHelpers.GetUserId());
         }
 
         public void Post(NFLWeekDTO value)
