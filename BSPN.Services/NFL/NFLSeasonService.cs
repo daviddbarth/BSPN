@@ -59,13 +59,6 @@ namespace BSPN.Services
 
         public IEnumerable<NFLGamePick> GetNFLPicks(int weekId, string userId)
         {
-            var picksQuery = GamePicksQuery(weekId, userId);
-
-            return picksQuery.AsEnumerable();
-        }
-
-        private static IQueryable<NFLGamePick> GamePicksQuery(int weekId, string userId)
-        {
             var gamePicks = _context.Set<NFLGamePick>();
             var games = _context.Set<NFLGame>();
 
@@ -75,7 +68,7 @@ namespace BSPN.Services
                 where NFLGames.NFLWeekId == weekId && NFLGamePicks.UserId == userId
                 select NFLGamePicks;
 
-            return gamePicksQuery;
+            return gamePicksQuery.AsEnumerable();
         }
 
         public void SaveNFLPicks(List<NFLGamePick> picks)

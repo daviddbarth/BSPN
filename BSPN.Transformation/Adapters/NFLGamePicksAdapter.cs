@@ -29,6 +29,8 @@ namespace BSPN.Transformation.Adapters
             _mapper.CreateMap<NFLWeek, NFLWeekDTO>();
             _mapper.CreateMap<NFLGame, NFLGameDTO>();
             _mapper.CreateMap<NFLTeam, NFLTeamDTO>();
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("HomeGames");
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("AwayGames");
 
         }
 
@@ -47,8 +49,8 @@ namespace BSPN.Transformation.Adapters
             {
                 var game = nflWeek.NFLGames.First(g => g.NFLGameId == pick.NFLGameId);
 
-                game.HomeTeamPicked = game.HomeTeamId == pick.NFLTeamId;
-                game.VisitingTeamPicked = game.VisitingTeamId == pick.NFLTeamId;
+                game.HomeTeamPicked = game.HomeTeam.NFLTeamId == pick.NFLTeamId;
+                game.VisitingTeamPicked = game.VisitingTeam.NFLTeamId == pick.NFLTeamId;
             }
 
             return nflWeek;
@@ -67,10 +69,10 @@ namespace BSPN.Transformation.Adapters
             var nflGamePick = new NFLGamePick() {NFLGameId = userGamePick.NFLGameId, UserId = userId};
 
             if (userGamePick.HomeTeamPicked)
-                nflGamePick.NFLTeamId = userGamePick.HomeTeamId;
+                nflGamePick.NFLTeamId = userGamePick.HomeTeam.NFLTeamId;
 
             if (userGamePick.VisitingTeamPicked)
-                nflGamePick.NFLTeamId = userGamePick.VisitingTeamId;
+                nflGamePick.NFLTeamId = userGamePick.VisitingTeam.NFLTeamId;
 
             return nflGamePick;
         }

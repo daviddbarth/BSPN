@@ -8,9 +8,7 @@ namespace BSPN.Transformation
         public int NFLGameId { get; set; }
         public int NFLWeekId { get; set; }
         public DateTime GameTime { get; set; }
-        public int HomeTeamId { get; set; }
         public NFLTeamDTO HomeTeam { get; set; }
-        public int VisitingTeamId { get; set; }
         public NFLTeamDTO VisitingTeam { get; set; }
         public int HomeTeamScore { get; set; }
         public int VisitingTeamScore { get; set; }
