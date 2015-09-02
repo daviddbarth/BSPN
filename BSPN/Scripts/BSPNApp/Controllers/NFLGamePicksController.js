@@ -2,7 +2,7 @@
 
 bspnApp.controller('NFLGamePicksController', ['$scope', 'NFLGamePicksService',
     function NFLGamePicksController($scope, NFLGamePicksService) {
-        $scope.NFLGamePicks = NFLGamePicksService.get();
+        $scope.NFLWeek = NFLGamePicksService.get();
 
         $scope.SaveGamePicks = function (NFLWeek) {
 

@@ -9,3 +9,7 @@ bspnApp.factory('NFLCurrentSeasonService', ['$resource', function($resource) {
 bspnApp.factory('NFLGamePicksService', ['$resource', function ($resource) {
     return $resource('/api/NFLGamePicks');
 }]);
+
+bspnApp.factory('NFLGameScoresService', ['$resource', function ($resource) {
+    return $resource('/api/NFLScores');
+}]);

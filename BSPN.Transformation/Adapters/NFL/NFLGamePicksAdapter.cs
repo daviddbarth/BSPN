@@ -11,56 +11,40 @@ namespace BSPN.Transformation.Adapters
         void SaveCurrentWeeksPicks(NFLWeekDTO currentWeek, string userId);
     }
 
-    public class NFLGamePicksAdapter : INFLGamePicksAdapter
+    public class NFLGamePicksAdapter : NFLGameAdapter, INFLGamePicksAdapter
     {
-        private static INFLSeasonService _nflSeasonService;
-        private readonly IBSNMapper _mapper;
-
         public NFLGamePicksAdapter(INFLSeasonService nflSeasonService, IBSNMapper mapper)
+            : base(nflSeasonService, mapper)
         {
-            _nflSeasonService = nflSeasonService;
-            _mapper = mapper;
-
-            CreateMaps();
-        }
-
-        private void CreateMaps()
-        {
-            _mapper.CreateMap<NFLWeek, NFLWeekDTO>();
-            _mapper.CreateMap<NFLGame, NFLGameDTO>();
-            _mapper.CreateMap<NFLTeam, NFLTeamDTO>();
-            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("HomeGames");
-            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("AwayGames");
 
         }
 
         public NFLWeekDTO GetCurrentWeekPicks(string userId)
         {
             var currentCentralTime = TimeHelpers.GetCurrentCentralTime();
+            var currentWeek = GetCurrentWeek();
+            var currentPicks = NFLSeasonService.GetNFLPicks(currentWeek.NFLWeekId, userId);
 
-            var currentSeason = _nflSeasonService.GetCurrentNFLSeason();
-            var currentWeek = _nflSeasonService.GetNFLWeek(currentSeason.CurrentWeekId);
-            var currentPicks = _nflSeasonService.GetNFLPicks(currentSeason.CurrentWeekId, userId);
-            var nflWeek = _mapper.Map<NFLWeekDTO>(currentWeek);
+            var mappedWeek = Mapper.Map<NFLWeekDTO>(currentWeek);
 
-            nflWeek.NFLGames.ToList().ForEach(g => g.PicksAllowed = g.GameTime > currentCentralTime);
+            mappedWeek.NFLGames.ToList().ForEach(g => g.PicksAllowed = g.GameTime > currentCentralTime);
             
             foreach(var pick in currentPicks)
             {
-                var game = nflWeek.NFLGames.First(g => g.NFLGameId == pick.NFLGameId);
+                var game = mappedWeek.NFLGames.First(g => g.NFLGameId == pick.NFLGameId);
 
                 game.HomeTeamPicked = game.HomeTeam.NFLTeamId == pick.NFLTeamId;
                 game.VisitingTeamPicked = game.VisitingTeam.NFLTeamId == pick.NFLTeamId;
             }
 
-            return nflWeek;
+            return mappedWeek;
         }
 
         public void SaveCurrentWeeksPicks(NFLWeekDTO currentWeek, string userId)
         {
             var gamePicksList = new List<NFLGamePick>();
             currentWeek.NFLGames.ToList().ForEach(g => { if(g.HomeTeamPicked || g.VisitingTeamPicked) gamePicksList.Add(CreateGamePick(g, userId)); });
-            _nflSeasonService.SaveNFLPicks(gamePicksList);
+            NFLSeasonService.SaveNFLPicks(gamePicksList);
 
         }
 

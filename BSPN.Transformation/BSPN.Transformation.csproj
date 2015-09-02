@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\BSNMapper.cs" />
-    <Compile Include="Adapters\NFLGamePicksAdapter.cs" />
-    <Compile Include="Adapters\NFLSeasonAdapter.cs" />
-    <Compile Include="Adapters\NFLTeamAdapter.cs" />
+    <Compile Include="Adapters\NFL\NFLGameAdapter.cs" />
+    <Compile Include="Adapters\NFL\NFLGamePicksAdapter.cs" />
+    <Compile Include="Adapters\NFL\NFLScoresAdapter.cs" />
+    <Compile Include="Adapters\NFL\NFLSeasonAdapter.cs" />
+    <Compile Include="Adapters\NFL\NFLTeamAdapter.cs" />
     <Compile Include="DTO\NFLSeasonDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

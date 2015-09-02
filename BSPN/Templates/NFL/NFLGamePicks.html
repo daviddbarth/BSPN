@@ -1,23 +1,7 @@
 ﻿<div ng-controller="NFLGamePicksController">
-    <h3>Game Picks - {{NFLGamePicks.Description}}</h3>
+    <h3>Game Picks - {{NFLWeek.Description}}</h3>
     <br />
-    <div class="row" ng-repeat="Game in NFLGamePicks.NFLGames | orderBy:'GameTime'">
-        <div ng->
-            <div class="col-lg-3">
-                <input type="checkbox" ng-model="Game.HomeTeamPicked" ng-disabled="{{Game.PicksAllowed}}==false"> {{Game.HomeTeam.City}} {{Game.HomeTeam.TeamName}}
-            </div>
-            <div class="col-lg-3">
-                vs.
-            </div>
-            <div class="col-lg-3">
-                <input type="checkbox" ng-model="Game.VisitingTeamPicked" ng-disabled="{{Game.PicksAllowed}}==false"> {{Game.VisitingTeam.City}} {{Game.VisitingTeam.TeamName}}
-            </div>
-            <div class="col-lg-3">
-                {{Game.GameTime | date:'EEEE h:mma'}}
-            </div>
-            <hr style="width: 100%; height: 1px; background-color: lightgrey" />
-        </div>
-    </div>
+    <nfl-gamelist showpicks="true" nflweek="NFLWeek"></nfl-gamelist>
     <button type="submit" ng-click="SaveGamePicks(NFLGamePicks)">Save Game Picks</button>
     <br /> <br />
     {{SaveResultMessage}}

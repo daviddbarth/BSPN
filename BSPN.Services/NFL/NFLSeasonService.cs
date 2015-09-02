@@ -95,5 +95,7 @@ namespace BSPN.Services
 
             return nflGame.GameTime > currentTime;
         }
+
+         
     }
 }
