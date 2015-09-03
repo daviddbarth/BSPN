@@ -1,0 +1,37 @@
+﻿<div class="row">
+    <div ng->
+        <div>
+
+        </div>
+        <table>
+            <tbody ng-repeat="Game in NFLWeek.NFLGames | orderBy:'GameTime'">
+                <tr>
+                    <td style="padding-left:3em;">
+                        {{Game.HomeTeam.City}} {{Game.HomeTeam.TeamName}}
+                    </td>
+                    <td>
+                        <input type="checkbox" ng-model="Game.HomeTeamPicked" ng-show="{{ShowPicks}}" ng-disabled="{{Game.PicksAllowed}}==false">
+                        <input type="text" ng-model="Game.HomeTeamScore" width="6" ng-show="{{ShowScores}}" style="width:30px; text-align:center" />
+                    </td>
+                    <td rowspan="2" style="padding-left:2em;">
+                        {{Game.GameTime | date:'EEEE h:mma'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-left:3em;">
+                        {{Game.VisitingTeam.City}} {{Game.VisitingTeam.TeamName}}
+                    </td>
+                    <td>
+                        <input type="checkbox" ng-model="Game.VisitingTeamPicked" ng-show="{{ShowPicks}}" ng-disabled="{{Game.PicksAllowed}}==false">
+                        <input type="text" ng-model="Game.VisitingTeamScore" width="6" ng-show="{{ShowScores}}" style="width:30px; text-align:center" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <hr />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
