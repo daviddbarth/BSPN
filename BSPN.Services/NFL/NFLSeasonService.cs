@@ -13,6 +13,7 @@ namespace BSPN.Services
         NFLWeek GetNFLWeek(int weekId);
         IEnumerable<NFLGamePick> GetNFLPicks(int weekId, string userId);
         void SaveNFLPicks(List<NFLGamePick> picks);
+        void SaveChanges();
     };
 
     public class NFLSeasonService : INFLSeasonService
@@ -57,6 +58,11 @@ namespace BSPN.Services
             return int.TryParse(weekId.ToString(), out wkId) ? _nflWeekRepository.Find(wkId) : null;
         }
 
+        public void SaveChanges()
+        {
+            _unitOfWork.Commit();
+        }
+
         public IEnumerable<NFLGamePick> GetNFLPicks(int weekId, string userId)
         {
             var gamePicks = _context.Set<NFLGamePick>();
@@ -97,5 +103,6 @@ namespace BSPN.Services
         }
 
          
+
     }
 }

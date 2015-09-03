@@ -6,7 +6,8 @@ bspnApp.directive('nflGamelist', function () {
         restrict: 'E',
         scope: {
             NFLWeek: '=nflweek',
-            ShowPicks: '@showpicks'
+            ShowPicks: '@showpicks',
+            ShowScores: '@showscores'
         },
         templateUrl: '/Templates/NFL/NFLGameList.html'
     };

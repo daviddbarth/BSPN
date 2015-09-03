@@ -31,7 +31,22 @@ namespace BSPN.Transformation.Adapters
 
         public void SaveWeekScores(NFLWeekDTO week)
         {
-            
+            var currentWeek = NFLSeasonService.GetNFLWeek(week.NFLWeekId);
+
+            foreach(var game in week.NFLGames)
+            {
+                var nflGame = currentWeek.NFLGames.First(g => g.NFLGameId == game.NFLGameId);
+                nflGame.HomeTeamScore = game.HomeTeamScore;
+                nflGame.VisitingTeamScore = game.VisitingTeamScore;
+
+                if (nflGame.HomeTeamScore > nflGame.VisitingTeamScore)
+                    nflGame.WinningTeamId = nflGame.HomeTeamId;
+
+                if (nflGame.HomeTeamScore < nflGame.VisitingTeamScore)
+                    nflGame.WinningTeamId = nflGame.VisitingTeamId;
+            }
+
+            NFLSeasonService.SaveChanges();
         }
     }
 }

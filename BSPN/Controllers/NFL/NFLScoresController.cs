@@ -23,5 +23,23 @@ namespace BSPN.Controllers.NFL
         {
             return _scoresAdapter.GetCurrentWeekScores();
         }
+
+        public void Post(NFLWeekDTO value)
+        {
+            try
+            {
+                _scoresAdapter.SaveWeekScores(value);
+            }
+            catch (Exception ex)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.Message),
+                    ReasonPhrase = "Invalid Request"
+                };
+
+                throw new HttpResponseException(resp);
+            }
+        }
     }
 }
