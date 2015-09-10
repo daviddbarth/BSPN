@@ -111,6 +111,7 @@
           <Property Name="NFLTeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="TeamName" Type="varchar" MaxLength="20" />
+          <Property Name="LogoImage" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="NFLWeeks">
           <Key>
@@ -823,6 +824,7 @@
           <Property Name="TeamName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="HomeGames" Relationship="SportsModel.NFLHomeTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
           <NavigationProperty Name="AwayGames" Relationship="SportsModel.NFLVisitingTeams_NFLGames_FK" FromRole="NFLTeam" ToRole="NFLGame" />
+          <Property Name="LogoImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="NFLWeek">
           <Key>
@@ -1068,6 +1070,7 @@
           <EntitySetMapping Name="NFLTeams">
             <EntityTypeMapping TypeName="SportsModel.NFLTeam">
               <MappingFragment StoreEntitySet="NFLTeams">
+                <ScalarProperty Name="LogoImage" ColumnName="LogoImage" />
                 <ScalarProperty Name="TeamName" ColumnName="TeamName" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="NFLTeamId" ColumnName="NFLTeamId" />

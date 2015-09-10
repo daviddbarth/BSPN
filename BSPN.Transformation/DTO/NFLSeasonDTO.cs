@@ -39,6 +39,7 @@ namespace BSPN.Transformation
         public int NFLTeamId { get; set; }
         public string City { get; set; }
         public string TeamName { get; set; }
+        public string LogoImage { get; set; }
         public IEnumerable<NFLGameDTO> HomeGames { get; set; }
         public IEnumerable<NFLGameDTO> AwayGames { get; set; }
     }

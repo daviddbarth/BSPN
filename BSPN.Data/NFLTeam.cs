@@ -23,6 +23,7 @@ namespace BSPN.Data
         public int NFLTeamId { get; set; }
         public string City { get; set; }
         public string TeamName { get; set; }
+        public string LogoImage { get; set; }
     
         public virtual ICollection<NFLGame> HomeGames { get; set; }
         public virtual ICollection<NFLGame> AwayGames { get; set; }
