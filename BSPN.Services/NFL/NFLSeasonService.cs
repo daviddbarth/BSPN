@@ -15,6 +15,10 @@ namespace BSPN.Services
         void SaveNFLPicks(List<NFLGamePick> picks);
         void SaveChanges();
         IEnumerable<NFLPickRecord> GetNFLRecords();
+        IEnumerable<NFLWeek> GetNFLWeeks();
+        IEnumerable<AspNetUser> GetNFLPicksPlayers();
+        int GetTotalGamesCount(int weekId);
+        int GetTotalCompleteGamesCount(int weekId);
     };
 
     public class NFLSeasonService : INFLSeasonService
@@ -59,9 +63,29 @@ namespace BSPN.Services
             return int.TryParse(weekId.ToString(), out wkId) ? _nflWeekRepository.Find(wkId) : null;
         }
 
+        public IEnumerable<NFLWeek> GetNFLWeeks()
+        {
+            var currentSeason = GetCurrentNFLSeason();
+
+            return _nflWeekRepository.FindAll(w => w.NFLSeasonId == currentSeason.NFLSeasonId).OrderBy(w => w.NFLWeekId);
+        }
+
         public void SaveChanges()
         {
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<AspNetUser> GetNFLPicksPlayers()
+        {
+            var users = _context.Set<AspNetUser>();
+            var picks = _context.Set<NFLGamePick>();
+
+            var playerQuery =
+                (from Users in users
+                join Picks in picks on Users.Id equals Picks.UserId
+                select Users).Distinct();
+
+            return playerQuery.AsEnumerable();
         }
 
         public IEnumerable<NFLPickRecord> GetNFLRecords()
@@ -75,12 +99,10 @@ namespace BSPN.Services
                 join Picks in picks on Users.Id equals Picks.UserId
                 join Games in games on Picks.NFLGameId equals Games.NFLGameId
                 where Picks.NFLTeamId == Games.WinningTeamId
-                group Users by new { Users.LastName, Users.FirstName, Users.NickName, Games.NFLWeekId} into P
+                group Users by new { Users.Id, Games.NFLWeekId} into P
                 select new NFLPickRecord()
                 {
-                    LastName = P.Key.LastName,
-                    FirstName = P.Key.FirstName,
-                    NickName = P.Key.NickName,
+                    UserId = P.Key.Id,
                     NFLWeekId = P.Key.NFLWeekId ?? default(int),
                     Wins = P.Count()
                 };
@@ -100,6 +122,16 @@ namespace BSPN.Services
                 select NFLGamePicks;
 
             return gamePicksQuery.AsEnumerable();
+        }
+
+        public int GetTotalGamesCount(int weekId)
+        {
+            return _nflGameRepository.FindAll(g => g.NFLWeekId == weekId).Count();
+        }
+
+        public int GetTotalCompleteGamesCount(int weekId)
+        {
+            return _nflGameRepository.FindAll(g => g.NFLWeekId == weekId && g.WinningTeamId != 0).Count();
         }
 
         public void SaveNFLPicks(List<NFLGamePick> picks)
@@ -127,15 +159,11 @@ namespace BSPN.Services
             return nflGame.GameTime > currentTime;
         }
 
-         
-
     }
 
     public class NFLPickRecord
     {
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string NickName { get; set; }
+        public string UserId { get; set; }
         public int NFLWeekId { get; set; }
         public int Wins { get; set; }
     }

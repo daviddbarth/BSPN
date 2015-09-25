@@ -23,18 +23,39 @@ namespace BSPN.Transformation
 
         public NFLWeeklyRecords GetWeeklyPicksRecord()
         {
+            var nflWeeks = _nflSeasonService.GetNFLWeeks();
             var records = _nflSeasonService.GetNFLRecords();
+            var players = _nflSeasonService.GetNFLPicksPlayers();
+
             var weeklyRecords = new NFLWeeklyRecords();
 
-            foreach(var record in records)
+            foreach(var week in nflWeeks)
             {
-                var weekRecord = new NFLWeekRecord();
-  
-                weekRecord.WeekId = record.NFLWeekId;
-                weekRecord.Player.LastName = record.LastName;
-                weekRecord.Player.FirstName = record.FirstName;
-                weekRecord.Player.NickName = record.NickName;
-                weekRecord.WinsCount = record.Wins;
+                if (records.Count(r => r.NFLWeekId == week.NFLWeekId) == 0)
+                    continue;
+
+                var weekRecord = new NFLWeekRecord() { NFLWeekId = week.NFLWeekId, NFLWeekDescription = week.Description };
+                var numberOfGames = _nflSeasonService.GetTotalCompleteGamesCount(week.NFLWeekId);
+
+                foreach(var player in players)
+                {
+                    var nflPlayerRecord = new NFLPlayerRecord();
+
+                    nflPlayerRecord.Player.LastName = player.LastName;
+                    nflPlayerRecord.Player.FirstName = player.FirstName;
+                    nflPlayerRecord.Player.NickName = player.NickName;
+                    nflPlayerRecord.NFLWeekId = week.NFLWeekId;
+                    nflPlayerRecord.WinsCount = 0;
+                    nflPlayerRecord.LosesCount = numberOfGames;
+
+                    foreach(var record in records.Where(r => r.NFLWeekId == week.NFLWeekId && r.UserId == player.Id))
+                    {                        
+                        nflPlayerRecord.WinsCount = record.Wins;
+                        nflPlayerRecord.LosesCount = numberOfGames - record.Wins;
+                    }
+
+                    weekRecord.NFLPlayerRecords.Add(nflPlayerRecord);
+                }
 
                 weeklyRecords.WeeklyRecords.Add(weekRecord);
             }

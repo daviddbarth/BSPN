@@ -57,12 +57,25 @@ namespace BSPN.Transformation
 
     public class NFLWeekRecord
     {
-        public UserDTO Player { get; set; }
-        public int WinsCount { get; set; }
-        public int LosesCount {get; set;}
-        public int WeekId { get; set; }
+        public int NFLWeekId { get; set; }
+        public string NFLWeekDescription { get; set; }
+        public IList<NFLPlayerRecord> NFLPlayerRecords;
 
         public NFLWeekRecord()
+        {
+            NFLPlayerRecords = new List<NFLPlayerRecord>();
+        }
+
+    }
+
+    public class NFLPlayerRecord
+    {
+        public UserDTO Player { get; set; }
+        public int WinsCount { get; set; }
+        public int LosesCount { get; set; }
+        public int NFLWeekId { get; set; }
+
+        public NFLPlayerRecord()
         {
             Player = new UserDTO();
         }
