@@ -218,6 +218,7 @@
     <Compile Include="Controllers\NASCAR\RaceFinishController.cs" />
     <Compile Include="Controllers\NFL\NFLCurrentSeasonController.cs" />
     <Compile Include="Controllers\NFL\NFLGamePicksController.cs" />
+    <Compile Include="Controllers\NFL\NFLRecordController.cs" />
     <Compile Include="Controllers\NFL\NFLScoresController.cs" />
     <Compile Include="Controllers\NFL\NFLSeasonController.cs" />
     <Compile Include="Controllers\NFL\NFLTeamsController.cs" />

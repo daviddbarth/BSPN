@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BSPN.Transformation
 {
@@ -44,22 +45,27 @@ namespace BSPN.Transformation
         public IEnumerable<NFLGameDTO> AwayGames { get; set; }
     }
 
-    public class NFLPicksPlayerRecord
+    public class NFLWeeklyRecords
+    {
+        public IList<NFLWeekRecord> WeeklyRecords { get; set; }
+
+        public NFLWeeklyRecords()
+        {
+            WeeklyRecords = new List<NFLWeekRecord>();
+        }
+    }
+
+    public class NFLWeekRecord
     {
         public UserDTO Player { get; set; }
-        public IEnumerable<NFLPicksRecord> WeeklyRecords { get; set; }
-    }
-
-    public class NFLPicksRecord
-    {
-        public int WeekId { get; set; }
-        public string WeekDescription { get; set; }
         public int WinsCount { get; set; }
-        public int LosesCount { get; set; }
+        public int LosesCount {get; set;}
+        public int WeekId { get; set; }
+
+        public NFLWeekRecord()
+        {
+            Player = new UserDTO();
+        }
     }
 
-    public class NFLWeeklyPicksRecords
-    {
-        public IEnumerable<NFLPicksPlayerRecord> PlayerRecords { get; set; }
-    }
 }

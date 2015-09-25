@@ -55,6 +55,9 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="NickName" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Claims">
           <Key>
@@ -534,6 +537,9 @@
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="RacePicks" Relationship="SportsModel.RacePicks_AspNetUsers_FK" FromRole="AspNetUser" ToRole="RacePick" />
           <NavigationProperty Name="NFLGamePicks" Relationship="SportsModel.NFLGamePicksASPNetUsersFK" FromRole="AspNetUser" ToRole="NFLGamePick" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NickName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -955,6 +961,9 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="SportsModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />

@@ -14,6 +14,7 @@ namespace BSPN.Services
         IEnumerable<NFLGamePick> GetNFLPicks(int weekId, string userId);
         void SaveNFLPicks(List<NFLGamePick> picks);
         void SaveChanges();
+        IEnumerable<NFLPickRecord> GetNFLRecords();
     };
 
     public class NFLSeasonService : INFLSeasonService
@@ -63,6 +64,30 @@ namespace BSPN.Services
             _unitOfWork.Commit();
         }
 
+        public IEnumerable<NFLPickRecord> GetNFLRecords()
+        {
+            var users = _context.Set<AspNetUser>();
+            var picks = _context.Set<NFLGamePick>();
+            var games = _context.Set<NFLGame>();
+
+            var recordQuery =
+                from Users in users
+                join Picks in picks on Users.Id equals Picks.UserId
+                join Games in games on Picks.NFLGameId equals Games.NFLGameId
+                where Picks.NFLTeamId == Games.WinningTeamId
+                group Users by new { Users.LastName, Users.FirstName, Users.NickName, Games.NFLWeekId} into P
+                select new NFLPickRecord()
+                {
+                    LastName = P.Key.LastName,
+                    FirstName = P.Key.FirstName,
+                    NickName = P.Key.NickName,
+                    NFLWeekId = P.Key.NFLWeekId ?? default(int),
+                    Wins = P.Count()
+                };
+
+            return recordQuery.AsEnumerable();
+        }
+        
         public IEnumerable<NFLGamePick> GetNFLPicks(int weekId, string userId)
         {
             var gamePicks = _context.Set<NFLGamePick>();
@@ -104,5 +129,14 @@ namespace BSPN.Services
 
          
 
+    }
+
+    public class NFLPickRecord
+    {
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string NickName { get; set; }
+        public int NFLWeekId { get; set; }
+        public int Wins { get; set; }
     }
 }
