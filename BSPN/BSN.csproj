@@ -219,7 +219,7 @@
     <Compile Include="Controllers\NFL\NFLCurrentSeasonController.cs" />
     <Compile Include="Controllers\NFL\NFLGamePicksController.cs" />
     <Compile Include="Controllers\NFL\NFLRecordController.cs" />
-    <Compile Include="Controllers\NFL\NFLScoresController.cs" />
+    <Compile Include="App_Start\NFLScoresController.cs" />
     <Compile Include="Controllers\NFL\NFLSeasonController.cs" />
     <Compile Include="Controllers\NFL\NFLTeamsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -316,6 +316,7 @@
     <Content Include="Scripts\BSPNApp\Controllers\NFLControllers.js" />
     <Content Include="Scripts\BSPNApp\Controllers\NFLGamePicksController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\NFLGameScoresController.js" />
+    <Content Include="Scripts\BSPNApp\Controllers\NFLPicksRecordController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\NFLTeamController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacePicksController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacesController.js" />
@@ -1094,6 +1095,7 @@
     <Content Include="Templates\Drivers\DriverList.html" />
     <Content Include="Templates\Drivers\EditDriver.html" />
     <Content Include="Templates\NFL\NFLGameList.html" />
+    <Content Include="Templates\NFL\NFLGamePickResults.html" />
     <Content Include="Templates\NFL\NFLGamePicks.html" />
     <Content Include="Templates\NFL\NFLGameScores.html" />
     <Content Include="Templates\NFL\NFLSeasonPicks.html" />

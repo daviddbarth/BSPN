@@ -17,7 +17,7 @@ namespace BSPN.Controllers
             _picksAdapter = picksAdapter;
         }
 
-        public NFLWeeklyRecords Get()
+        public NFLWeeklyPicksRecords Get()
         {
             return _picksAdapter.GetWeeklyPicksRecord();
         }

@@ -45,37 +45,38 @@ namespace BSPN.Transformation
         public IEnumerable<NFLGameDTO> AwayGames { get; set; }
     }
 
-    public class NFLWeeklyRecords
+    public class NFLWeeklyPicksRecords
     {
-        public IList<NFLWeekRecord> WeeklyRecords { get; set; }
+        public IList<NFLWeekPicksRecord> WeeklyRecords { get; set; }
+        public NFLWeekPicksRecord CurrentWeekRecords { get; set; }
 
-        public NFLWeeklyRecords()
+        public NFLWeeklyPicksRecords()
         {
-            WeeklyRecords = new List<NFLWeekRecord>();
+            WeeklyRecords = new List<NFLWeekPicksRecord>();
         }
     }
 
-    public class NFLWeekRecord
+    public class NFLWeekPicksRecord
     {
         public int NFLWeekId { get; set; }
         public string NFLWeekDescription { get; set; }
-        public IList<NFLPlayerRecord> NFLPlayerRecords;
+        public IList<NFLPlayerPicksRecord> NFLPlayerRecords;
 
-        public NFLWeekRecord()
+        public NFLWeekPicksRecord()
         {
-            NFLPlayerRecords = new List<NFLPlayerRecord>();
+            NFLPlayerRecords = new List<NFLPlayerPicksRecord>();
         }
 
     }
 
-    public class NFLPlayerRecord
+    public class NFLPlayerPicksRecord
     {
         public UserDTO Player { get; set; }
         public int WinsCount { get; set; }
         public int LosesCount { get; set; }
         public int NFLWeekId { get; set; }
 
-        public NFLPlayerRecord()
+        public NFLPlayerPicksRecord()
         {
             Player = new UserDTO();
         }

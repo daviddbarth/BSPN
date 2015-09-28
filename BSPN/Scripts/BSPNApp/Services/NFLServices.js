@@ -13,3 +13,7 @@ bspnApp.factory('NFLGamePicksService', ['$resource', function ($resource) {
 bspnApp.factory('NFLGameScoresService', ['$resource', function ($resource) {
     return $resource('/api/NFLScores');
 }]);
+
+bspnApp.factory('NFLPicksRecordsService', ['$resource', function ($resource) {
+    return $resource('/api/NFLRecord');
+}]);

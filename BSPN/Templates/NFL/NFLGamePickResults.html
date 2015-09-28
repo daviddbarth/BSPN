@@ -1,0 +1,7 @@
+﻿<div ng-controller="NFLPicksRecordController">
+    <h3>Game Pick Results - {{NFLPicksRecords.CurrentWeekRecords.NFLWeekDescription}}</h3>
+    <br />
+    <div ng-repeat="PlayerRecord in NFLPicksRecords.CurrentWeekRecords.NFLPlayerRecords">
+        {{PlayerRecord.Player.FirstName}}  {{PlayerRecord.WinsCount}} - {{PlayerRecord.LosesCount}}
+    </div>
+</div>
