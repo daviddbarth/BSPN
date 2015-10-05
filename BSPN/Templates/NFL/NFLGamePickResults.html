@@ -1,7 +1,45 @@
-﻿<div ng-controller="NFLPicksRecordController">
+﻿<div ng-controller="NFLPicksRecordController" ng-init="showMoreButton=true">
     <h3>Game Pick Results - {{NFLPicksRecords.CurrentWeekRecords.NFLWeekDescription}}</h3>
     <br />
-    <div ng-repeat="PlayerRecord in NFLPicksRecords.CurrentWeekRecords.NFLPlayerRecords">
-        {{PlayerRecord.Player.FirstName}}  {{PlayerRecord.WinsCount}} - {{PlayerRecord.LosesCount}}
+    <div style="width: 500px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">Player</th>
+                    <th class="col-sm-1">Record</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="PlayerRecord in NFLPicksRecords.CurrentWeekRecords.NFLPlayerRecords | orderBy:'-WinsCount'">
+                <td>{{PlayerRecord.Player.FirstName}} "{{PlayerRecord.Player.NickName}}" {{PlayerRecord.Player.LastName}}</td>
+                <td>{{PlayerRecord.WinsCount}} - {{PlayerRecord.LosesCount}}</td>
+            </tr>
+        </table>
+        <button type="button" id="ShowMoreButton" class="btn btn-sm" ng-click="showMore=true;showMoreButton=false" ng-show="showMoreButton">
+            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+            Show More
+        </button>
+        <div ng-show="showMore">
+            <br />
+            <hr />
+            <div id="WeeklyRecords" ng-repeat="WeekRecord in NFLPicksRecords.WeeklyRecords">
+                <h4>{{WeekRecord.NFLWeekDescription}}</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">Player</th>
+                            <th class="col-sm-1">Record</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="PlayerRecord in WeekRecord.NFLPlayerRecords | orderBy:'-WinsCount'">
+                        <td>{{PlayerRecord.Player.FirstName}} "{{PlayerRecord.Player.NickName}}" {{PlayerRecord.Player.LastName}}</td>
+                        <td>{{PlayerRecord.WinsCount}} - {{PlayerRecord.LosesCount}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button type="button" id="ShowMoreButton" class="btn btn-sm" ng-click="showMore=false;showMoreButton=true" ng-show="showMore">
+            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+            Show Less
+        </button>
     </div>
 </div>
