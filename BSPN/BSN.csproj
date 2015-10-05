@@ -321,6 +321,7 @@
     <Content Include="Scripts\BSPNApp\Controllers\RacePicksController.js" />
     <Content Include="Scripts\BSPNApp\Controllers\RacesController.js" />
     <Content Include="Scripts\BSPNApp\Directives\NFLGamesList.js" />
+    <Content Include="Scripts\BSPNApp\Directives\nflTeamDropDown.js" />
     <Content Include="Scripts\BSPNApp\Services\DriverData.js" />
     <Content Include="Scripts\BSPNApp\Services\NFLServices.js" />
     <Content Include="Scripts\BSPNApp\Services\RaceData.js" />
@@ -1094,6 +1095,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\Drivers\DriverList.html" />
     <Content Include="Templates\Drivers\EditDriver.html" />
+    <Content Include="Templates\NFL\Directives\NFLTeamDropDown.html" />
     <Content Include="Templates\NFL\NFLGameList.html" />
     <Content Include="Templates\NFL\NFLGamePickResults.html" />
     <Content Include="Templates\NFL\NFLGamePicks.html" />

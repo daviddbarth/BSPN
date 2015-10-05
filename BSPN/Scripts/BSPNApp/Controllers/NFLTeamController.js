@@ -21,8 +21,4 @@ bspnApp.controller('NFLTeamListController', ['$scope', 'NFLService',
     }
 ]);
 
-//bspnApp.controller('NFLTeamController', ['$scope', '$routeParams', 'NFLService',
-//    function NFLTeamController($scope, $routeParams, NFLService) {
-//        $scope.NFLTeam = NFLService.getTeam({ id: 1 });
-//    }
-//]);
+
