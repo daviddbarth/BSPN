@@ -1,9 +1,11 @@
 ﻿<div ng-controller="NFLGamePicksController">
     <h3>Game Picks - {{NFLWeek.Description}}</h3>
     <br />
+    <nfl-teamdrop nflteamlistcontroller="NFLTeamListController"></nfl-teamdrop>
     <nfl-gamelist showpicks="true" nflweek="NFLWeek"></nfl-gamelist>
     <button type="submit" ng-click="SaveGamePicks(NFLWeek)">Save Game Picks</button>
     <br /> <br />
     {{SaveResultMessage}}
+   
 </div>
 

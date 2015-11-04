@@ -29,7 +29,8 @@ namespace BSPN.Transformation
         {
             _mapper.CreateMap<NFLTeam, NFLTeamDTO>();
             _mapper.CreateMap<NFLGame, NFLGameDTO>();
-            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("NFLGames");
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("HomeGames");
+            _mapper.ExcludeProperty<NFLTeam, NFLTeamDTO>("AwayGames");
             _mapper.CreateMap<NFLTeamDTO, NFLTeam>();
         }
         

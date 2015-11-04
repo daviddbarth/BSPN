@@ -23,12 +23,12 @@ namespace BSPN.Controllers
             return _nflAdapter.GetNFLTeams();
         }
 
-        //[AcceptVerbs("GET")]
-        //[ClaimsAuthorizeAPI("Edit", "NFL")]
-        //public NFLTeamDTO Get(int id)
-        //{
-        //    return _nflAdapter.GetNFLTeam(id);
-        //}
+        [AcceptVerbs("GET")]
+        [ClaimsAuthorizeAPI("Edit", "NFL")]
+        public NFLTeamDTO Get(int id)
+        {
+            return _nflAdapter.GetNFLTeam(id);
+        }
 
         [AcceptVerbs("POST")]
         [ClaimsAuthorizeAPI("Admin", "NFL")]
